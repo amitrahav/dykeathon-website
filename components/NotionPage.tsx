@@ -9,8 +9,6 @@ import BodyClassName from 'react-body-classname'
 import useDarkMode from 'use-dark-mode'
 import { PageBlock } from 'notion-types'
 
-import { Tweet, TwitterContextProvider } from 'react-static-tweets'
-
 // core notion renderer
 import { NotionRenderer, Code, Collection, CollectionRow } from 'react-notion-x'
 
@@ -32,7 +30,6 @@ import { PageHead } from './PageHead'
 import { PageActions } from './PageActions'
 import { Footer } from './Footer'
 import { PageSocial } from './PageSocial'
-import { GitHubShareButton } from './GitHubShareButton'
 import { ReactUtterances } from './ReactUtterances'
 
 import styles from './styles.module.css'
@@ -103,14 +100,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
 
   const title = getBlockTitle(block, recordMap) || site.name
 
-  console.log('notion page', {
-    isDev: config.isDev,
-    title,
-    pageId,
-    rootNotionPageId: site.rootNotionPageId,
-    recordMap
-  })
-
   if (!config.isServer) {
     // add important objects to the window global for easy debugging
     const g = window as any
@@ -164,15 +153,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
   }
 
   return (
-    <TwitterContextProvider
-      value={{
-        tweetAstMap: (recordMap as any).tweetAstMap || {},
-        swrOptions: {
-          fetcher: (id) =>
-            fetch(`/api/get-tweet-ast/${id}`).then((r) => r.json())
-        }
-      }}
-    >
+    <>
       <PageHead site={site} />
 
       <Head>
@@ -252,7 +233,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
           code: Code,
           collection: Collection,
           collectionRow: CollectionRow,
-          tweet: Tweet,
           modal: Modal,
           equation: Equation
         }}
@@ -279,8 +259,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
           />
         }
       />
-
-      <GitHubShareButton />
-    </TwitterContextProvider>
+    </>
   )
 }

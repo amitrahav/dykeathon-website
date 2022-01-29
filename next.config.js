@@ -1,4 +1,4 @@
-// const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
+const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
@@ -6,6 +6,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withBundleAnalyzer({
   images: {
-    domains: ['pbs.twimg.com']
+    domains: [process.env.NEXT_PUBLIC_DOMAIN]
   }
 })
