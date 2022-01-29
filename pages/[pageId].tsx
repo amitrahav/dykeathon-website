@@ -15,7 +15,6 @@ export const getStaticProps = async (context) => {
         }
       }
     }
-
     const props = await resolveNotionPage(domain, rawPageId)
 
     return { props, revalidate: 10 }

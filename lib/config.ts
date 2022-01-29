@@ -39,7 +39,7 @@ export const pageUrlAdditions = cleanPageUrlMap(
 // general site config
 export const name: string = getSiteConfig('name')
 export const author: string = getSiteConfig('author')
-export const domain: string = getSiteConfig('domain')
+export const domain: string = getSiteConfig('domain', 'localhost:3000')
 export const description: string = getSiteConfig('description', 'Notion Blog')
 
 // social accounts
@@ -106,7 +106,8 @@ export const apiBaseUrl = `${host}/api`
 
 export const api = {
   createPreviewImage: `${apiBaseUrl}/create-preview-image`,
-  searchNotion: `${apiBaseUrl}/search-notion`
+  searchNotion: `${apiBaseUrl}/search-notion`,
+  getParticipantsNum: `${apiBaseUrl}/participants`
 }
 
 // ----------------------------------------------------------------------------
