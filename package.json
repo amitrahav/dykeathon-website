@@ -7,7 +7,7 @@
   "repository": "transitive-bullshit/nextjs-notion-starter-kit",
   "license": "MIT",
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "scripts": {
     "dev": "next dev",
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "^4.10.1",
+    "@notionhq/client": "^0.4.13",
     "classnames": "^2.3.1",
     "date-fns": "^2.25.0",
     "fathom-client": "^3.0.0",
