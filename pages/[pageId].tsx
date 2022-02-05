@@ -16,7 +16,7 @@ export const getStaticProps = async (context) => {
       }
     }
     const props = await resolveNotionPage(domain, rawPageId)
-
+    // props.site.fontFamily = 'Josefin+Sans'
     return { props, revalidate: 10 }
   } catch (err) {
     console.error('page error', domain, rawPageId, err)
@@ -49,7 +49,7 @@ export async function getStaticPaths() {
     fallback: true
   }
 
-  console.log(ret.paths)
+  // console.log(ret.paths)
   return ret
 }
 
