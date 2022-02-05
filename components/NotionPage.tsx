@@ -5,8 +5,8 @@ import dynamic from 'next/dynamic'
 import cs from 'classnames'
 import { useRouter } from 'next/router'
 import { useSearchParam } from 'react-use'
-import BodyClassName from 'react-body-classname'
-import useDarkMode from 'use-dark-mode'
+// import BodyClassName from 'react-body-classname'
+// import useDarkMode from 'use-dark-mode'
 import { PageBlock } from 'notion-types'
 
 // core notion renderer
@@ -18,7 +18,7 @@ import { mapPageUrl, getCanonicalPageUrl } from 'lib/map-page-url'
 import { mapNotionImageUrl } from 'lib/map-image-url'
 import { getPageDescription } from 'lib/get-page-description'
 import { getPageTweet } from 'lib/get-page-tweet'
-import { searchNotion } from 'lib/search-notion'
+// import { searchNotion } from 'lib/search-notion'
 import * as types from 'lib/types'
 import * as config from 'lib/config'
 
@@ -85,7 +85,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const isLiteMode = lite === 'true'
   const searchParams = new URLSearchParams(params)
 
-  const darkMode = useDarkMode(false, { classNameDark: 'dark-mode' })
+  // const darkMode = useDarkMode(false, { classNameDark: 'dark-mode' })
 
   if (router.isFallback) {
     return <Loading />
@@ -139,7 +139,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
           repo={config.utterancesGitHubRepo}
           issueMap='issue-term'
           issueTerm='title'
-          theme={darkMode.value ? 'photon-dark' : 'github-light'}
+          theme={'github-light'}
         />
       )
     }
@@ -198,7 +198,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
 
       <CustomFont site={site} />
 
-      {isLiteMode && <BodyClassName className='notion-lite' />}
+      {/* {isLiteMode && <BodyClassName className='notion-lite' />} */}
 
       <NotionRenderer
         bodyClassName={cs(
@@ -239,7 +239,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
         recordMap={recordMap}
         rootPageId={site.rootNotionPageId}
         fullPage={!isLiteMode}
-        darkMode={darkMode.value}
+        darkMode={true}
         previewImages={site.previewImages !== false}
         showCollectionViewDropdown={false}
         showTableOfContents={showTableOfContents}
@@ -249,15 +249,10 @@ export const NotionPage: React.FC<types.PageProps> = ({
         defaultPageCoverPosition={config.defaultPageCoverPosition}
         mapPageUrl={siteMapPageUrl}
         mapImageUrl={mapNotionImageUrl}
-        searchNotion={searchNotion}
+        searchNotion={null}
         pageFooter={comments}
         pageAside={pageAside}
-        footer={
-          <Footer
-            isDarkMode={darkMode.value}
-            toggleDarkMode={darkMode.toggle}
-          />
-        }
+        footer={<Footer />}
       />
     </>
   )
