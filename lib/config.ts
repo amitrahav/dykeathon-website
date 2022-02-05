@@ -107,7 +107,8 @@ export const apiBaseUrl = `${host}/api`
 export const api = {
   createPreviewImage: `${apiBaseUrl}/create-preview-image`,
   searchNotion: `${apiBaseUrl}/search-notion`,
-  getParticipantsNum: `${apiBaseUrl}/participants`
+  getParticipantsNum: `${apiBaseUrl}/participants`,
+  registerParticipant: `${apiBaseUrl}/registerParticipant`
 }
 
 // ----------------------------------------------------------------------------

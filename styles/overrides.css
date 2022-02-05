@@ -9,12 +9,24 @@
 body{
     background-color: var(--white);
     font-family: "Josefin Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
+    font-weight: 200;
+}
 
+.notion-page{
+    padding-bottom: 0!important;
+    margin-top: -140px;
 }
 
 .notion-frame{
     background-color: var(--purple);
-    color: var(--white)
+    color: var(--white);
+    padding-top:0;
+}
+
+.notion-page-cover{
+    box-shadow: none;
+    max-width: 100%;
+    border-radius: 0;
 }
 
 .notion-title{
@@ -22,8 +34,12 @@ body{
     font-weight: 200;
 }
 
+.notion-hr{
+    border-color: var(--blue);
+}
+
 .notion-page-icon-wrapper {
-    top: calc(-15vh - 140px)!important;
+    top: -15vh !important;
 }
 
 .notion-page-icon-wrapper img.notion-page-icon{
@@ -42,25 +58,34 @@ body{
     margin-top:0;
 }
 
-.notion-page{
-    padding-bottom: 0!important;
-}
-
 .notion-page-content>article :last-child{
     margin-bottom: 0!important;
 }
-
-
 
 form {
     /* max-width: 600px; */
     margin: 0 auto;
     padding: 10px 20px;
     background-color: var(--purple);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+form .form-group{
+    flex: 3 1 calc(100% / 3);  /*grow | shrink | basis */
+    padding: 0 10px;
 }
   
 form p {
-    color: #bf1650;
+    color: var(--blue);
+}
+
+textarea{
+    width: 100%;
+    max-width: 100%;
+    height: 60px;
+    padding:5px;
 }
   
 form p::before {
