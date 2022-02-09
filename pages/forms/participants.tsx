@@ -11,9 +11,35 @@ export default function ParticipantsPreRegister() {
 
   const [gotTeam, setTeam] = useState(false)
   const [isLoading, setLoading] = useState(false)
+  const validateFileSize = (file: Blob): boolean => {
+    const mb = file.size / 1024 / 1024
+    return mb < 5
+  }
+
+  const cvPrepare = async (file: File) => {
+    return new Promise((resolve, reject) => {
+      const fr = new FileReader()
+      fr.onload = (e) => {
+        const cv = {
+          fileName: file.name,
+          mimeType: file.type,
+          bytes: [...new Uint8Array(e.target.result)]
+        }
+        resolve(cv)
+      }
+      fr.readAsArrayBuffer(file)
+    })
+  }
 
   const registerSubmit = async (event) => {
     setLoading(true)
+    const fileSizeValid = validateFileSize(event.cv[0])
+    if (!fileSizeValid) {
+      return alert('CV size exceeds 5 MiB')
+    }
+
+    event.cv = await cvPrepare(event.cv[0])
+    console.log({ event })
 
     await fetch(api.registerParticipant, {
       body: JSON.stringify(event),
@@ -47,32 +73,55 @@ export default function ParticipantsPreRegister() {
         <h3>General and work status</h3>
 
         <label htmlFor='name'>Name</label>
-        <input {...register('name', { required: true })} />
+        <input id='name' {...register('name', { required: true })} />
         {errors.name && <p>Name is required.</p>}
 
         <label htmlFor='email'>Email</label>
         <input
-          type='mail'
-          {...register('email', { pattern: /\d+/, required: true })}
+          type='email'
+          id='email'
+          {...register('email', {
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: 'invalid email address'
+            },
+            required: true
+          })}
         />
         {errors.email && <p>Please enter a valid mail.</p>}
 
         <label htmlFor='cv'>CV</label>
-        <input type='file' {...register('cv', { pattern: /\d+/ })} />
+        <input
+          type='file'
+          id='cv'
+          {...register('cv')}
+          accept='.pdf,application/pdf'
+        />
         {errors.cv && <p>This must be a valid PDF</p>}
 
         <label htmlFor='linkeding'>Linkedin link</label>
-        <input {...register('linkedin', { pattern: /\d+/ })} />
+        <input
+          id='linkedin'
+          type='url'
+          {...register('linkedin', {
+            pattern: {
+              value:
+                /((https?:\/\/)?((www|\w\w)\.)?linkedin\.com\/)((([\w]{2,3})?)|([^/]+\/(([\w|\d-&#?=])+\/?){1,}))$/gm,
+              message: 'invalid linkedin url. make sure that`s your public link'
+            }
+          })}
+        />
         {errors.linkeding && <p>Please enter a valid linkeding link.</p>}
 
         <input
           style={{ display: 'inline-block', width: 'auto' }}
           type='checkbox'
+          id='workSeek'
           defaultChecked={false}
-          {...register('work-seek')}
+          {...register('workSeek')}
         />
         <label
-          htmlFor='work-seek'
+          htmlFor='workSeek'
           style={{ display: 'inline-block', marginLeft: '10px' }}
         >
           I'm looking for a new challange in my carear
@@ -81,12 +130,13 @@ export default function ParticipantsPreRegister() {
 
         <input
           style={{ display: 'inline-block', width: 'auto' }}
+          id='recruitersApproval'
           type='checkbox'
           defaultChecked={false}
-          {...register('recruts-approval', { required: true })}
+          {...register('recruitersApproval', { required: true })}
         />
         <label
-          htmlFor='recruts-approval'
+          htmlFor='recruitersApproval'
           style={{ display: 'inline-block', marginLeft: '10px' }}
         >
           I approve sharing my CV and work status with recruiters
@@ -98,6 +148,7 @@ export default function ParticipantsPreRegister() {
         <input
           style={{ display: 'inline-block', width: 'auto' }}
           type='checkbox'
+          id='team'
           defaultChecked={gotTeam}
           {...register('team')}
           onChange={() => setTeam(!gotTeam)}
@@ -112,17 +163,17 @@ export default function ParticipantsPreRegister() {
 
         {gotTeam && (
           <>
-            <label>Whos your friends?</label>
-            <p>Use ; to sparete between them</p>
-            <textarea {...register('teamMembers')} />
+            <label htmlFor='teamMembers'>Whos your friends?</label>
+            <p>Use ; to sparete between your team mates email addresses</p>
+            <textarea id='teamMembers' {...register('teamMembers')} />
           </>
         )}
 
-        <label>What is your skill set</label>
-        <textarea {...register('skils')} />
+        <label htmlFor='skils'>What is your skill set</label>
+        <textarea {...register('skils')} id='skils' />
 
         <label htmlFor='subject'>Issue to solve</label>
-        <select {...register('subject')}>
+        <select id='subject' {...register('subject')}>
           <option value='health'>Health</option>
           <option value='safety'>Safety</option>
           <option value='community'>Community</option>
@@ -136,6 +187,7 @@ export default function ParticipantsPreRegister() {
         <input
           style={{ display: 'inline-block', width: 'auto' }}
           type='checkbox'
+          id='party'
           defaultChecked={true}
           {...register('party')}
         />
@@ -150,6 +202,7 @@ export default function ParticipantsPreRegister() {
         <input
           style={{ display: 'inline-block', width: 'auto' }}
           type='checkbox'
+          id='vegetarian'
           {...register('vegetarian')}
         />
         <label
@@ -163,6 +216,7 @@ export default function ParticipantsPreRegister() {
           style={{ display: 'inline-block', width: 'auto', marginLeft: '15px' }}
           type='checkbox'
           {...register('vegan')}
+          id='vegan'
         />
         <label
           htmlFor='vegan'
@@ -175,6 +229,7 @@ export default function ParticipantsPreRegister() {
           style={{ display: 'inline-block', width: 'auto', marginLeft: '15px' }}
           type='checkbox'
           {...register('kosher')}
+          id='kosher'
         />
         <label
           htmlFor='kosher'
@@ -186,6 +241,7 @@ export default function ParticipantsPreRegister() {
         <input
           style={{ display: 'inline-block', width: 'auto', marginLeft: '15px' }}
           type='checkbox'
+          id='gluten'
           {...register('gluten')}
         />
         <label
@@ -200,18 +256,19 @@ export default function ParticipantsPreRegister() {
           Wanna Tell us about your food prefernces and alergies?
         </label>
         <textarea
+          id='food'
           {...register('food')}
           placeholder={"ex. I'm eating kosher vegetarian"}
         />
 
         <label htmlFor='questions'>Any qustions for us?</label>
-        <textarea {...register('questions')} />
+        <textarea id='questions' {...register('questions')} />
 
         <label htmlFor='leadFrom'>
           And finally, would you mind telling us how you heard about the
           Dyke'athon?
         </label>
-        <select {...register('leadFrom')}>
+        <select {...register('leadFrom')} id='leadFrom'>
           <option value='facebook'>Facebook</option>
           <option value='linkedin'>Linkedin</option>
           <option value='twitter'>Twitter</option>
@@ -225,3 +282,4 @@ export default function ParticipantsPreRegister() {
     </form>
   )
 }
+
