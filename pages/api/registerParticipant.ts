@@ -1,33 +1,23 @@
+/* eslint-disable dot-notation */
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Client } from '@notionhq/client'
-import Readable from 'stream'
+import {
+  CreatePageParameters,
+  GetDatabaseResponse
+} from '@notionhq/client/build/src/api-endpoints'
 import { google } from 'googleapis'
 import credentials from '../../credentials.json'
+import multiparty from 'multiparty'
+import fs from 'fs'
 
-export const config = { api: { bodyParser: { sizeLimit: '5MB' } } }
-function bufferToStream(myBuuffer: ArrayBuffer) {
-  const readable:any = new Readable()
-  readable._read = () => {} // _read is required but you can noop it
-  readable.push(myBuuffer)
-  readable.push(null)
-  
-  return readable
+export const config = { api: { bodyParser: false } }
+interface FileObject {
+  fieldName: string
+  originalFilename: string
+  path: string
+  headers: object
+  size: number
 }
-
-// const cvPrepare = async (file: File) => {
-//   return new Promise((resolve, reject) => {
-//     const fr = new FileReader()
-//     fr.onload = (e) => {
-//       const cv = {
-//         fileName: file.name,
-//         mimeType: file.type,
-//         bytes: [...new Int8Array(e.target.result)]
-//       }
-//       resolve(cv)
-//     }
-//     fr.readAsArrayBuffer(file)
-//   })
-// }
 export class GoogleDriveService {
   private driveClient
 
@@ -50,8 +40,11 @@ export class GoogleDriveService {
     })
   }
 
-  public uploadFile(bytes: ArrayBuffer, fileName: string, mimeType: string) {
+  public uploadFile(file: FileObject) {
     const folderId: string = process.env.GOOGLE_CV_FOLDER
+    const fileName: string = file.originalFilename
+    const mimeType = 'application/pdf'
+
     return this.driveClient.files
       .create({
         resource: {
@@ -61,12 +54,12 @@ export class GoogleDriveService {
         },
         media: {
           mimeType: mimeType,
-          body: bufferToStream(bytes)
+          body: fs.createReadStream(file.path)
         },
         fields: 'id'
       })
       .then((response) => {
-        console.log({ response, bytes, fileName, mimeType })
+        // console.log({ response, file, fileName, mimeType })
         return response.config.url
       })
       .catch((error) => {
@@ -76,55 +69,77 @@ export class GoogleDriveService {
 }
 
 const buildType = (fieldType: string, value: [any] | any, fieldDesc) => {
-  console.log({ fieldType, value })
-  if (value === undefined || value === '') {
+  if (
+    fieldType !== 'checkbox' &&
+    (value === null || value === undefined || value === '' || !value.length)
+  ) {
     return
   }
   let field = fieldDesc
   switch (fieldType) {
     case 'date':
-      field.start = value
+      field = {
+        start: value || new Date()
+      }
       break
     case 'multi_select':
-      field.multi_select = value.map(
-        (select) =>
-          field.multi_select.options.filter(
-            (option) => option.name === select
-          )[0]
-      )
+      field = {
+        multi_select: value.map((select) => {
+          return {
+            id: field.multi_select.options.filter(
+              (option) => option.name === select
+            )[0]['id']
+          }
+        })
+      }
       break
     case 'select':
-      field.select = value
-      break
-    case 'email':
-    case 'url':
-      delete field.name
-      delete field.email
-      delete field.url
-      field.type = 'title'
-      field.title = [{ text: { content: value } }]
+      field = {
+        select: {
+          name: value
+        }
+      }
       break
     case 'checkbox':
-      field = { checkbox: !!value }
+      field = {
+        checkbox: value
+      }
       break
     case 'number':
-      console.log('number', field)
-      field.number = value
+      field = {
+        number: value
+      }
+      break
+    case 'url':
+      field = { url: value }
+      break
+    case 'email':
+      field = { email: value }
       break
     case 'title':
       field = {
-        title: [{ text: { content: value } }],
-        type: 'text'
+        title: [
+          {
+            text: {
+              content: value
+            }
+          }
+        ]
       }
       break
     case 'rich_text':
-      delete field.name
-      delete field.rich_text
-      field.title = [{ text: { content: value } }]
-      field.type = 'title'
+      field = {
+        rich_text: [
+          {
+            text: {
+              content: value
+            }
+          }
+        ]
+      }
       break
     case 'phone_number':
-      field.phone_number = value
+      field = { phone_number: value }
       break
     default:
       console.log('unimplemented property type: ', fieldType, field)
@@ -133,11 +148,10 @@ const buildType = (fieldType: string, value: [any] | any, fieldDesc) => {
   return field
 }
 
-const mapDatasToNotionDBFields = async (
-  {
+const mapDatasToNotionDBFields = (data: FormFields, props, cvUrl: string) => {
+  const {
     name,
     email,
-    cv,
     linkedin,
     workSeek,
     recruitersApproval,
@@ -152,58 +166,82 @@ const mapDatasToNotionDBFields = async (
     gluten,
     questions,
     leadFrom
-  },
-  props
-): Promise<object> => {
+  } = data
   const foodPrefs = <any>[]
-  if (kosher) {
+  if (kosher === 'true') {
     foodPrefs.push('kosher')
   }
-  if (gluten) {
+  if (gluten === 'true') {
     foodPrefs.push('gluten-free')
   }
-  if (vegan) {
+  if (vegan === 'true') {
     foodPrefs.push('vegan')
   }
-  if (vegetarian) {
+  if (vegetarian === 'true') {
     foodPrefs.push('vegetarian')
   }
 
-  console.log({ cv })
-  const googleClient = new GoogleDriveService()
-  const cvUrl = await googleClient.uploadFile(
-    cv.bytes,
-    cv.fileName,
-    cv.mimeType
-  )
-  console.log({ cvUrl })
+  const idsByName = Object.keys(props).reduce((result, name) => {
+    result[name] = props[name].id
+    return result
+  }, {})
 
   const mapNotionDB = {
     Name: name,
     Email: email,
     CV: cvUrl,
     Linkedin: linkedin,
-    'Job Searching': workSeek,
-    'Approved share CV with recruiters': recruitersApproval,
+    'Job Searching': workSeek === 'true',
+    'Approved share CV with recruiters': recruitersApproval === 'true',
     'team members': teamMembers,
     'Food allergies': food,
     Source: leadFrom,
     Field: subject,
-    'Staying for afterparty': party,
+    'Staying for afterparty': party === 'true',
     'Food preferences': foodPrefs,
     'questions for us': questions,
     'Skill set': skils
   }
 
-  Object.keys(mapNotionDB).forEach(function (key) {
-    const built = buildType(props[key]?.type, mapNotionDB[key], props[key])
-    if (built !== undefined) {
-      mapNotionDB[key] = built
-    }
+  const nameById = Object.keys(mapNotionDB).map((name) => {
+    return { [idsByName[name]]: name }
   })
-  return mapNotionDB
+
+  const valueById = Object.values(nameById).reduce((res, key) => {
+    const name = Object.values(key)[0]
+    const id = Object.keys(key)[0]
+    const built = buildType(props[name]?.type, mapNotionDB[name], props[name])
+    if (built !== undefined) {
+      res[id] = built
+    }
+    return res
+  }, {})
+  return valueById
 }
 
+interface FormFields {
+  name: string
+  email: string
+  linkedin: string
+  workSeek: 'false' | 'true'
+  recruitersApproval: 'false' | 'true'
+  teamMembers: string
+  skils: string
+  subject: string
+  party: 'false' | 'true'
+  vegetarian: 'false' | 'true'
+  vegan: 'false' | 'true'
+  food: string
+  kosher: 'false' | 'true'
+  gluten: 'false' | 'true'
+  questions: string
+  leadFrom: string
+}
+interface dataPrased {
+  err: Error
+  fields: FormFields
+  files: { cv: [FileObject] }
+}
 export default async (
   req: NextApiRequest,
   res: NextApiResponse
@@ -211,23 +249,54 @@ export default async (
   if (req.method !== 'POST') {
     return res.status(405).send({ error: 'method not allowed' })
   }
+  const data = await new Promise(
+    (resolve: (value: dataPrased) => void, reject: (value: Error) => void) => {
+      const form = new multiparty.Form()
+
+      form.parse(
+        req,
+        (err: Error, fields: FormFields, files: { cv: [FileObject] }) => {
+          if (err) reject(err)
+          resolve({ err, fields, files })
+        }
+      )
+    }
+  )
+
+  data.fields = Object.keys(data.fields).reduce((result, key) => {
+    result[key] = data.fields[key][0]
+    return result
+  }, data.fields)
+
   const databaseId = process.env.NOTION_PARTICIPANTS_DB
   const notion = new Client({
     auth: process.env.NOTION_API_KEY
   })
-  const db = await notion.databases.retrieve({
+  const db: GetDatabaseResponse = await notion.databases.retrieve({
     database_id: databaseId
   })
-  const properties = mapDatasToNotionDBFields(req.body, db.properties)
-  console.log({ properties })
 
-  // console.log({ db })
-  const response = await notion.pages.create({
+  let cvUrl = null
+  if (data.files.cv) {
+    const googleClient = new GoogleDriveService()
+    cvUrl = await googleClient.uploadFile(data.files.cv[0])
+  }
+
+  const properties = mapDatasToNotionDBFields(data.fields, db.properties, cvUrl)
+  const createBody: CreatePageParameters = {
     parent: {
       database_id: databaseId
     },
     properties
-  })
-
-  res.status(200).json(response)
+  }
+  try {
+    const response = await notion.pages.create(createBody)
+    res.status(200).json(response)
+  } catch (err) {
+    res.status(500).json({
+      res: JSON.parse(err.body).message,
+      req: createBody,
+      props: db.properties
+    })
+  }
 }

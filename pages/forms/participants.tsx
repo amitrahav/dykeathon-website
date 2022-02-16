@@ -16,44 +16,35 @@ export default function ParticipantsPreRegister() {
     return mb < 5
   }
 
-  const cvPrepare = async (file: File) => {
-    return new Promise((resolve, reject) => {
-      const fr = new FileReader()
-      fr.onload = (e) => {
-        const cv = {
-          fileName: file.name,
-          mimeType: file.type,
-          bytes: [...new Uint8Array(e.target.result)]
-        }
-        resolve(cv)
-      }
-      fr.readAsArrayBuffer(file)
-    })
-  }
-
   const registerSubmit = async (event) => {
     setLoading(true)
-    const fileSizeValid = validateFileSize(event.cv[0])
-    if (!fileSizeValid) {
-      return alert('CV size exceeds 5 MiB')
+    if (event.cv[0]) {
+      const fileSizeValid = validateFileSize(event.cv[0])
+      if (!fileSizeValid) {
+        return alert('CV size exceeds 5 MiB')
+      }
     }
 
-    event.cv = await cvPrepare(event.cv[0])
-    console.log({ event })
+    const data = new FormData()
+    for (const key of Object.keys(event)) {
+      if (key === 'cv' && event[key][0]) {
+        data.append(key, event[key][0], event.name)
+      }
+      data.append(key, event[key])
+    }
 
     await fetch(api.registerParticipant, {
-      body: JSON.stringify(event),
+      body: data,
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        Accept: 'application/json'
       }
     })
       .then((res) => {
-        try {
-          console.log(res)
+        if (res.ok) {
           return res.json()
-        } catch (err) {
-          return res
+        } else {
+          throw new Error(res.statusText)
         }
       })
       .then((data) => {
@@ -282,4 +273,3 @@ export default function ParticipantsPreRegister() {
     </form>
   )
 }
-
