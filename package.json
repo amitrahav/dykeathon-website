@@ -31,9 +31,11 @@
     "classnames": "^2.3.1",
     "date-fns": "^2.25.0",
     "fathom-client": "^3.0.0",
+    "googleapis": "39",
     "got": "^11.8.2",
     "isomorphic-unfetch": "^3.1.0",
     "lqip-modern": "^1.2.0",
+    "multiparty": "^4.2.3",
     "next": "^11.1.2",
     "notion-client": "^4.15.0",
     "notion-types": "^4.15.0",
@@ -48,6 +50,7 @@
     "react-notion-x": "^4.15.0",
     "react-use": "^17.2.4",
     "use-dark-mode": "^2.3.1",
+    "util": "^0.12.4",
     "vercel": "^23.1.2"
   },
   "devDependencies": {
