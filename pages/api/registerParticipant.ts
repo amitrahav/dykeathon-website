@@ -6,7 +6,6 @@ import {
   GetDatabaseResponse
 } from '@notionhq/client/build/src/api-endpoints'
 import { google } from 'googleapis'
-import credentials from '../../credentials.json'
 import multiparty from 'multiparty'
 import fs from 'fs'
 
@@ -25,12 +24,17 @@ export class GoogleDriveService {
     this.driveClient = this.createDriveClient()
   }
 
+  private credentials = {
+    client_email: "",
+    private_key: ""
+  }
+
   createDriveClient() {
     const scopes = ['https://www.googleapis.com/auth/drive']
     const auth = new google.auth.JWT(
-      credentials.client_email,
+      this.credentials.client_email,
       null,
-      credentials.private_key,
+      this.credentials.private_key,
       scopes
     )
 
