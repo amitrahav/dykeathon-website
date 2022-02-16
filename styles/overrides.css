@@ -90,7 +90,7 @@ textarea{
     padding:5px;
 }
   
-form p::before {
+form p.error::before {
     display: inline;
     content: "⚠ ";
 }

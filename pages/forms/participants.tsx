@@ -65,7 +65,7 @@ export default function ParticipantsPreRegister() {
 
         <label htmlFor='name'>Name</label>
         <input id='name' {...register('name', { required: true })} />
-        {errors.name && <p>Name is required.</p>}
+        {errors.name && <p className='error'>Name is required.</p>}
 
         <label htmlFor='email'>Email</label>
         <input
@@ -79,7 +79,7 @@ export default function ParticipantsPreRegister() {
             required: true
           })}
         />
-        {errors.email && <p>Please enter a valid mail.</p>}
+        {errors.email && <p className='error'>Please enter a valid mail.</p>}
 
         <label htmlFor='cv'>CV</label>
         <input
@@ -88,7 +88,9 @@ export default function ParticipantsPreRegister() {
           {...register('cv')}
           accept='.pdf,application/pdf'
         />
-        {errors.cv && <p>This must be a valid PDF</p>}
+        {errors.cv && (
+          <p className='error'>This must be a valid PDF under 5mib</p>
+        )}
 
         <label htmlFor='linkeding'>Linkedin link</label>
         <input
@@ -102,7 +104,9 @@ export default function ParticipantsPreRegister() {
             }
           })}
         />
-        {errors.linkeding && <p>Please enter a valid linkeding link.</p>}
+        {errors.linkeding && (
+          <p className='error'>Please enter a valid linkeding link.</p>
+        )}
 
         <input
           style={{ display: 'inline-block', width: 'auto' }}
@@ -132,10 +136,16 @@ export default function ParticipantsPreRegister() {
         >
           I approve sharing my CV and work status with recruiters
         </label>
+        {errors.recruitersApproval && (
+          <p className='error'>
+            We will share your CV and empoyment status only with the best
+            recruiters in the industry.
+          </p>
+        )}
       </div>
 
       <div className='form-group'>
-        <h3>The dyke-athon challange</h3>
+        <h3>The challange</h3>
         <input
           style={{ display: 'inline-block', width: 'auto' }}
           type='checkbox'
@@ -170,7 +180,6 @@ export default function ParticipantsPreRegister() {
           <option value='community'>Community</option>
           <option value='legal'>Legal</option>
         </select>
-        {/* What's your preferred subject */}
       </div>
 
       <div className='form-group'>
