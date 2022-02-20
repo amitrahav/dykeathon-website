@@ -7,20 +7,29 @@
 
 
 body{
-    background-color: var(--white);
+    background-color: var(--purple);
     font-family: "Josefin Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
     font-weight: 200;
 }
 
 .notion-page{
     padding-bottom: 0!important;
-    margin-top: -140px;
+    margin-top: -170px;
+}
+
+.nav-header .breadcrumb{
+    color: var(--purple);
+}
+
+.notion-header .breadcrumb .icon{
+    top: -3px;
 }
 
 .notion-frame{
-    background-color: var(--purple);
-    color: var(--white);
+    background-color: var(--white);
+    color: var(--purple);
     padding-top:0;
+    height: auto!important;
 }
 
 .notion-page-cover{
@@ -31,6 +40,7 @@ body{
 }
 
 .notion-title{
+    color: var(--white);
     font-style: italic;
     font-weight: 200;
 }
@@ -40,7 +50,7 @@ body{
 }
 
 .notion-page-icon-wrapper {
-    top: -50px !important;
+    top: -100px !important;
     max-height:min-content;
 }
 
@@ -65,18 +75,27 @@ body{
 }
 
 form {
-    /* max-width: 600px; */
+    min-width: min-content;
     margin: 0 auto;
     padding: 10px 20px;
-    background-color: var(--purple);
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
 }
 
+form select{
+    width: 100%;
+}
+
 form .form-group{
     flex: 3 1 calc(100% / 3);  /*grow | shrink | basis */
     padding: 0 10px;
+    min-width: 300px;
+}
+
+form .form-group.flex-full{
+    flex: none;
+    width: 100%;
 }
   
 form p {

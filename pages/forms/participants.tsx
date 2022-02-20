@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { api } from '../../lib/config'
+import Select from 'react-select'
 
 export default function ParticipantsPreRegister() {
   const {
@@ -174,12 +175,16 @@ export default function ParticipantsPreRegister() {
         <textarea {...register('skils')} id='skils' />
 
         <label htmlFor='subject'>Issue to solve</label>
-        <select id='subject' {...register('subject')}>
-          <option value='health'>Health</option>
-          <option value='safety'>Safety</option>
-          <option value='community'>Community</option>
-          <option value='legal'>Legal</option>
-        </select>
+        <Select
+          id='subject'
+          {...register('subject')}
+          options={[
+            { value: 'health', label: 'Health' },
+            { value: 'safety', label: 'Safety' },
+            { value: 'community', label: 'Community' },
+            { value: 'legal', label: 'Legal' }
+          ]}
+        />
       </div>
 
       <div className='form-group'>
@@ -199,67 +204,91 @@ export default function ParticipantsPreRegister() {
         </label>
         <p>The plan is to code from 10 to 22, and dance from 22 to 02</p>
 
-        <input
-          style={{ display: 'inline-block', width: 'auto' }}
-          type='checkbox'
-          id='vegetarian'
-          {...register('vegetarian')}
-        />
-        <label
-          htmlFor='vegetarian'
-          style={{ display: 'inline-block', marginLeft: '10px' }}
-        >
-          I'm a vegetarian
-        </label>
+        <hr />
 
-        <input
-          style={{ display: 'inline-block', width: 'auto', marginLeft: '15px' }}
-          type='checkbox'
-          {...register('vegan')}
-          id='vegan'
-        />
-        <label
-          htmlFor='vegan'
-          style={{ display: 'inline-block', marginLeft: '10px' }}
-        >
-          I'm a vegan
-        </label>
+        <div>
+          <input
+            style={{ display: 'inline-block', width: 'auto' }}
+            type='checkbox'
+            id='vegetarian'
+            {...register('vegetarian')}
+          />
+          <label
+            htmlFor='vegetarian'
+            style={{ display: 'inline-block', marginLeft: '10px' }}
+          >
+            Vegetarian
+          </label>
+        </div>
 
-        <input
-          style={{ display: 'inline-block', width: 'auto', marginLeft: '15px' }}
-          type='checkbox'
-          {...register('kosher')}
-          id='kosher'
-        />
-        <label
-          htmlFor='kosher'
-          style={{ display: 'inline-block', marginLeft: '10px' }}
-        >
-          I'm eating kosher
-        </label>
+        <div>
+          <input
+            style={{
+              display: 'inline-block',
+              width: 'auto',
+              marginLeft: '15px'
+            }}
+            type='checkbox'
+            {...register('vegan')}
+            id='vegan'
+          />
+          <label
+            htmlFor='vegan'
+            style={{ display: 'inline-block', marginLeft: '10px' }}
+          >
+            Vegan
+          </label>
+        </div>
 
-        <input
-          style={{ display: 'inline-block', width: 'auto', marginLeft: '15px' }}
-          type='checkbox'
-          id='gluten'
-          {...register('gluten')}
-        />
-        <label
-          htmlFor='gluten'
-          style={{ display: 'inline-block', marginLeft: '10px' }}
-        >
-          I'm gluten free
-        </label>
+        <div>
+          <input
+            style={{
+              display: 'inline-block',
+              width: 'auto',
+              marginLeft: '15px'
+            }}
+            type='checkbox'
+            {...register('kosher')}
+            id='kosher'
+          />
+          <label
+            htmlFor='kosher'
+            style={{ display: 'inline-block', marginLeft: '10px' }}
+          >
+            Kosher
+          </label>
+        </div>
+
+        <div>
+          <input
+            style={{
+              display: 'inline-block',
+              width: 'auto',
+              marginLeft: '15px'
+            }}
+            type='checkbox'
+            id='gluten'
+            {...register('gluten')}
+          />
+          <label
+            htmlFor='gluten'
+            style={{ display: 'inline-block', marginLeft: '10px' }}
+          >
+            Gluten free
+          </label>
+        </div>
         <br />
 
         <label htmlFor='foos'>
-          Wanna Tell us about your food prefernces and alergies?
+          Wanna Tell us more about your food prefernces or alergies?
         </label>
         <textarea
           id='food'
           {...register('food')}
-          placeholder={"ex. I'm eating kosher vegetarian"}
+          placeholder={'ex. have a life threatening allergy of peanuts'}
         />
+
+        <hr />
 
         <label htmlFor='questions'>Any qustions for us?</label>
         <textarea id='questions' {...register('questions')} />
@@ -276,7 +305,7 @@ export default function ParticipantsPreRegister() {
         </select>
       </div>
 
-      <div className='form-group'>
+      <div className='form-group flex-full'>
         <input type='submit' disabled={isLoading} />
       </div>
     </form>
