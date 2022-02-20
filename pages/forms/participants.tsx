@@ -6,13 +6,14 @@ import CheckboxField from '../../components/forms/checkboxField'
 import TextAreaField from '../../components/forms/textAreaField'
 import SelectField from '../../components/forms/selectField'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { api } from 'lib/config'
 
 export default function ParticipantsPreRegister() {
   const myForm = useForm()
   const [isLoading, setIsLoading] = React.useState(false)
   const [isDone, setIsDone] = React.useState(false)
+  const [isEmbbeded, setIsEmbbeded] = React.useState(true)
   const submitForm = async (values) => {
     setIsLoading(true)
     const data = new FormData()
@@ -73,6 +74,13 @@ export default function ParticipantsPreRegister() {
     const mb = file.size / 1024 / 1024
     return mb < 5
   }
+
+  useEffect(function onFirstMount() {
+    let queryParams = new URLSearchParams()
+    queryParams = new URLSearchParams(window.location.search)
+    setIsEmbbeded(queryParams.get('e') !== null)
+  }, []) // empty dependencies array means "run this once on first mount"
+
   return isDone ? (
     <form style={{ textAlign: 'center' }}>
       <h2>Check your mail for more detials (:</h2>
@@ -82,6 +90,7 @@ export default function ParticipantsPreRegister() {
     </form>
   ) : (
     <Formiz onValidSubmit={submitForm} connect={myForm}>
+      {!isEmbbeded && <h1>Dykeathon registration</h1>}
       <form
         noValidate
         onSubmit={myForm.submitStep}
@@ -127,7 +136,7 @@ export default function ParticipantsPreRegister() {
               ]}
             />
             <TextField
-              name='phone_number'
+              name='phoneNumber'
               label='Phone number'
               validations={[
                 {
@@ -215,6 +224,15 @@ export default function ParticipantsPreRegister() {
               placeholder=''
             />
 
+            <TextField
+              name='children'
+              label='How many children do you want to attend at our daycare durring the event?'
+            />
+            <p>
+              The LGBTQ TLV center kindergarten teacher will operate a daycare
+              for the dykeathon children between 16:00-22:00
+            </p>
+
             <SelectField
               name='leadFrom'
               mutliple={true}
@@ -230,7 +248,10 @@ export default function ParticipantsPreRegister() {
         </div>
 
         <div className='demo-form__footer'>
-          <div className='mr-auto' style={{ minWidth: '6rem' }}>
+          <div
+            className='mr-auto'
+            style={{ minWidth: '6rem', textAlign: 'left' }}
+          >
             {!myForm.isFirstStep && (
               <button
                 className='demo-button is-full is-primary'
@@ -243,7 +264,7 @@ export default function ParticipantsPreRegister() {
           </div>
           <div
             className='text-sm text-gray-500 p-2 text-center w-full xs:w-auto order-first xs:order-none'
-            style={{ paddingTop: '3rem' }}
+            style={{ paddingTop: '25px', textAlign: 'center' }}
           >
             <span style={{ textAlign: 'center' }}>
               {' '}
@@ -252,7 +273,10 @@ export default function ParticipantsPreRegister() {
               of {myForm.steps.length}
             </span>
           </div>
-          <div className='ml-auto' style={{ minWidth: '6rem' }}>
+          <div
+            className='ml-auto'
+            style={{ minWidth: '6rem', textAlign: 'right' }}
+          >
             {myForm.isLastStep ? (
               <button
                 className='demo-button is-full is-primary'

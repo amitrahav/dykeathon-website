@@ -166,6 +166,8 @@ const mapDatasToNotionDBFields = (data: FormFields, props, cvUrl: string) => {
     foodPrefs,
     food,
     questions,
+    phoneNumber,
+    children,
     leadFrom
   } = data
 
@@ -188,7 +190,9 @@ const mapDatasToNotionDBFields = (data: FormFields, props, cvUrl: string) => {
     'Staying for afterparty': party === 'true',
     'Food preferences': foodPrefs,
     'questions for us': questions,
-    'Skill set': skils
+    'Skill set': skils,
+    Phone: phoneNumber,
+    'Children for daycare': children
   }
 
   const nameById = Object.keys(mapNotionDB).map((name) => {
@@ -221,6 +225,8 @@ interface FormFields {
   foodPrefs: string
   questions: string
   leadFrom: string
+  phoneNumber: string
+  children: number
 }
 interface dataPrased {
   err: Error
