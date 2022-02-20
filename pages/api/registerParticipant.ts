@@ -25,8 +25,8 @@ export class GoogleDriveService {
   }
 
   private credentials = {
-    client_email: "",
-    private_key: ""
+    client_email: process.env.GOOGLE_CLIENT_EMAIL,
+    private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n')
   }
 
   createDriveClient() {
@@ -88,7 +88,7 @@ const buildType = (fieldType: string, value: [any] | any, fieldDesc) => {
       break
     case 'multi_select':
       field = {
-        multi_select: value.map((select) => {
+        multi_select: value.split(',').map((select) => {
           return {
             id: field.multi_select.options.filter(
               (option) => option.name === select
@@ -163,27 +163,11 @@ const mapDatasToNotionDBFields = (data: FormFields, props, cvUrl: string) => {
     skils,
     subject,
     party,
-    vegetarian,
-    vegan,
+    foodPrefs,
     food,
-    kosher,
-    gluten,
     questions,
     leadFrom
   } = data
-  const foodPrefs = <any>[]
-  if (kosher === 'true') {
-    foodPrefs.push('kosher')
-  }
-  if (gluten === 'true') {
-    foodPrefs.push('gluten-free')
-  }
-  if (vegan === 'true') {
-    foodPrefs.push('vegan')
-  }
-  if (vegetarian === 'true') {
-    foodPrefs.push('vegetarian')
-  }
 
   const idsByName = Object.keys(props).reduce((result, name) => {
     result[name] = props[name].id
@@ -233,11 +217,8 @@ interface FormFields {
   skils: string
   subject: string
   party: 'false' | 'true'
-  vegetarian: 'false' | 'true'
-  vegan: 'false' | 'true'
   food: string
-  kosher: 'false' | 'true'
-  gluten: 'false' | 'true'
+  foodPrefs: string
   questions: string
   leadFrom: string
 }

@@ -78,28 +78,21 @@ form {
     min-width: min-content;
     margin: 0 auto;
     padding: 10px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+    color: var(--purple)!important;
+    background: var(--white);
+}
+
+form label, form input, form select, form textarea{
+    color: var(--purple)!important;
 }
 
 form select{
     width: 100%;
 }
-
-form .form-group{
-    flex: 3 1 calc(100% / 3);  /*grow | shrink | basis */
-    padding: 0 10px;
-    min-width: 300px;
-}
-
-form .form-group.flex-full{
-    flex: none;
-    width: 100%;
-}
   
 form p {
-    color: var(--blue);
+    background-color: var(--blue);
+    text-align: center;
 }
 
 textarea{
@@ -113,31 +106,54 @@ form p.error::before {
     display: inline;
     content: "⚠ ";
 }
+
+.demo-form__footer{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.demo-form__footer > *{
+    flex: 1;
+}
   
 input {
     display: block;
     box-sizing: border-box;
     width: 100%;
     border-radius: 4px;
-    border: 1px solid white;
+    border: 1px solid var(--purple);
     padding: 10px 15px;
     margin-bottom: 10px;
     font-size: 14px;
 }
 
+input[type="checkbox"] {
+    width: auto;
+    display: inline-block;
+}
+
+input[type="checkbox"] + label{
+    display: inline-block;
+    margin-left: 5px;
+}
+
 label {
-line-height: 2;
-text-align: left;
-display: block;
-margin-bottom: 13px;
-margin-top: 20px;
-color: white;
-font-size: 14px;
-font-weight: 200;
+    line-height: 2;
+    text-align: left;
+    display: block;
+    margin-bottom: 13px;
+    margin-top: 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: 200;
 }
 
 button[type="submit"],
-input[type="submit"] {
+input[type="submit"],
+button[type="button"],
+input[type="button"]{
     background: var(--white);
     color: var(--purple);
     text-transform: uppercase;
@@ -150,30 +166,34 @@ input[type="submit"] {
     transition: all .2s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
+button[type="button"]:hover,
+input[type="button"]:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-filter: brightness(95%);
+    filter: brightness(95%);
 }
 
+button[type="button"]:active,
 button[type="submit"]:active,
 input[type="button"]:active,
 input[type="submit"]:active {
-transition: 0.3s all;
-transform: translateY(3px);
-border: 1px solid transparent;
-opacity: 0.8;
+    transition: 0.3s all;
+    transform: translateY(3px);
+    border: 1px solid transparent;
+    opacity: 0.8;
 }
 
 input:disabled {
-opacity: 0.4;
+    opacity: 0.4;
 }
 
 input[type="button"]:hover {
-transition: 0.3s all;
+    transition: 0.3s all;
 }
 
+button[type="button"],
 button[type="submit"],
 input[type="button"],
 input[type="submit"] {
--webkit-appearance: none;
+    -webkit-appearance: none;
 }

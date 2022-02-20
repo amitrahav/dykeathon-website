@@ -1,37 +1,43 @@
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { api } from '../../lib/config'
-import Select from 'react-select'
+import { Formiz, FormizStep, useForm } from '@formiz/core'
+import * as validations from '@formiz/validations'
+import TextField from '../../components/forms/textField'
+import UploadField from '../../components/forms/uploadField'
+import CheckboxField from '../../components/forms/checkboxField'
+import TextAreaField from '../../components/forms/textAreaField'
+import SelectField from '../../components/forms/selectField'
+
+import React from 'react'
+import { api } from 'lib/config'
 
 export default function ParticipantsPreRegister() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm()
-
-  const [gotTeam, setTeam] = useState(false)
-  const [isLoading, setLoading] = useState(false)
-  const validateFileSize = (file: Blob): boolean => {
-    const mb = file.size / 1024 / 1024
-    return mb < 5
-  }
-
-  const registerSubmit = async (event) => {
-    setLoading(true)
-    if (event.cv[0]) {
-      const fileSizeValid = validateFileSize(event.cv[0])
-      if (!fileSizeValid) {
-        return alert('CV size exceeds 5 MiB')
-      }
-    }
-
+  const myForm = useForm()
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [isDone, setIsDone] = React.useState(false)
+  const submitForm = async (values) => {
+    setIsLoading(true)
     const data = new FormData()
-    for (const key of Object.keys(event)) {
-      if (key === 'cv' && event[key][0]) {
-        data.append(key, event[key][0], event.name)
+    try {
+      for (const key of Object.keys(values)) {
+        if (values[key] === null) {
+          continue
+        }
+        if (key === 'cv' && values[key]) {
+          data.append(key, values[key], values.name)
+        } else if (Array.isArray(values[key])) {
+          const vals = values[key].map((val) => val.value)
+          data.append(key, vals)
+        } else if (typeof values[key] === 'object') {
+          if ('value' in values[key]) {
+            data.append(key, values[key].value)
+          }
+        } else {
+          data.append(key, values[key])
+        }
       }
-      data.append(key, event[key])
+    } catch (err) {
+      console.error(err)
+      setIsLoading(false)
+      return
     }
 
     await fetch(api.registerParticipant, {
@@ -49,265 +55,226 @@ export default function ParticipantsPreRegister() {
         }
       })
       .then((data) => {
+        setIsDone(true)
         console.log({ data })
       })
       .catch((error) => {
         console.log(error)
       })
       .finally(() => {
-        setLoading(false)
+        setIsLoading(false)
       })
   }
 
-  return (
-    <form onSubmit={handleSubmit(registerSubmit)}>
-      <div className='form-group'>
-        <h3>General and work status</h3>
-
-        <label htmlFor='name'>Name</label>
-        <input id='name' {...register('name', { required: true })} />
-        {errors.name && <p className='error'>Name is required.</p>}
-
-        <label htmlFor='email'>Email</label>
-        <input
-          type='email'
-          id='email'
-          {...register('email', {
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: 'invalid email address'
-            },
-            required: true
-          })}
-        />
-        {errors.email && <p className='error'>Please enter a valid mail.</p>}
-
-        <label htmlFor='cv'>CV</label>
-        <input
-          type='file'
-          id='cv'
-          {...register('cv')}
-          accept='.pdf,application/pdf'
-        />
-        {errors.cv && (
-          <p className='error'>This must be a valid PDF under 5mib</p>
-        )}
-
-        <label htmlFor='linkeding'>Linkedin link</label>
-        <input
-          id='linkedin'
-          type='url'
-          {...register('linkedin', {
-            pattern: {
-              value:
-                /((https?:\/\/)?((www|\w\w)\.)?linkedin\.com\/)((([\w]{2,3})?)|([^/]+\/(([\w|\d-&#?=])+\/?){1,}))$/gm,
-              message: 'invalid linkedin url. make sure that`s your public link'
-            }
-          })}
-        />
-        {errors.linkeding && (
-          <p className='error'>Please enter a valid linkeding link.</p>
-        )}
-
-        <input
-          style={{ display: 'inline-block', width: 'auto' }}
-          type='checkbox'
-          id='workSeek'
-          defaultChecked={false}
-          {...register('workSeek')}
-        />
-        <label
-          htmlFor='workSeek'
-          style={{ display: 'inline-block', marginLeft: '10px' }}
-        >
-          I'm looking for a new challange in my carear
-        </label>
-        <br />
-
-        <input
-          style={{ display: 'inline-block', width: 'auto' }}
-          id='recruitersApproval'
-          type='checkbox'
-          defaultChecked={false}
-          {...register('recruitersApproval', { required: true })}
-        />
-        <label
-          htmlFor='recruitersApproval'
-          style={{ display: 'inline-block', marginLeft: '10px' }}
-        >
-          I approve sharing my CV and work status with recruiters
-        </label>
-        {errors.recruitersApproval && (
-          <p className='error'>
-            We will share your CV and empoyment status only with the best
-            recruiters in the industry.
-          </p>
-        )}
-      </div>
-
-      <div className='form-group'>
-        <h3>The challange</h3>
-        <input
-          style={{ display: 'inline-block', width: 'auto' }}
-          type='checkbox'
-          id='team'
-          defaultChecked={gotTeam}
-          {...register('team')}
-          onChange={() => setTeam(!gotTeam)}
-        />
-        <label
-          htmlFor='team'
-          style={{ display: 'inline-block', marginLeft: '10px' }}
-        >
-          Got a team?
-        </label>
-        {!gotTeam && <p>If not - we will match you with other great team</p>}
-
-        {gotTeam && (
-          <>
-            <label htmlFor='teamMembers'>Whos your friends?</label>
-            <p>Use ; to sparete between your team mates email addresses</p>
-            <textarea id='teamMembers' {...register('teamMembers')} />
-          </>
-        )}
-
-        <label htmlFor='skils'>What is your skill set</label>
-        <textarea {...register('skils')} id='skils' />
-
-        <label htmlFor='subject'>Issue to solve</label>
-        <Select
-          id='subject'
-          {...register('subject')}
-          options={[
-            { value: 'health', label: 'Health' },
-            { value: 'safety', label: 'Safety' },
-            { value: 'community', label: 'Community' },
-            { value: 'legal', label: 'Legal' }
-          ]}
-        />
-      </div>
-
-      <div className='form-group'>
-        <h3>Event prefernces</h3>
-        <input
-          style={{ display: 'inline-block', width: 'auto' }}
-          type='checkbox'
-          id='party'
-          defaultChecked={true}
-          {...register('party')}
-        />
-        <label
-          htmlFor='party'
-          style={{ display: 'inline-block', marginLeft: '10px' }}
-        >
-          I'm definitely staying for the after party
-        </label>
-        <p>The plan is to code from 10 to 22, and dance from 22 to 02</p>
-
-        <hr />
-
-        <div>
-          <input
-            style={{ display: 'inline-block', width: 'auto' }}
-            type='checkbox'
-            id='vegetarian'
-            {...register('vegetarian')}
-          />
-          <label
-            htmlFor='vegetarian'
-            style={{ display: 'inline-block', marginLeft: '10px' }}
-          >
-            Vegetarian
-          </label>
-        </div>
-
-        <div>
-          <input
-            style={{
-              display: 'inline-block',
-              width: 'auto',
-              marginLeft: '15px'
-            }}
-            type='checkbox'
-            {...register('vegan')}
-            id='vegan'
-          />
-          <label
-            htmlFor='vegan'
-            style={{ display: 'inline-block', marginLeft: '10px' }}
-          >
-            Vegan
-          </label>
-        </div>
-
-        <div>
-          <input
-            style={{
-              display: 'inline-block',
-              width: 'auto',
-              marginLeft: '15px'
-            }}
-            type='checkbox'
-            {...register('kosher')}
-            id='kosher'
-          />
-          <label
-            htmlFor='kosher'
-            style={{ display: 'inline-block', marginLeft: '10px' }}
-          >
-            Kosher
-          </label>
-        </div>
-
-        <div>
-          <input
-            style={{
-              display: 'inline-block',
-              width: 'auto',
-              marginLeft: '15px'
-            }}
-            type='checkbox'
-            id='gluten'
-            {...register('gluten')}
-          />
-          <label
-            htmlFor='gluten'
-            style={{ display: 'inline-block', marginLeft: '10px' }}
-          >
-            Gluten free
-          </label>
-        </div>
-        <br />
-
-        <label htmlFor='foos'>
-          Wanna Tell us more about your food prefernces or alergies?
-        </label>
-        <textarea
-          id='food'
-          {...register('food')}
-          placeholder={'ex. have a life threatening allergy of peanuts'}
-        />
-
-        <hr />
-
-        <label htmlFor='questions'>Any qustions for us?</label>
-        <textarea id='questions' {...register('questions')} />
-
-        <label htmlFor='leadFrom'>
-          And finally, would you mind telling us how you heard about the
-          Dyke'athon?
-        </label>
-        <select {...register('leadFrom')} id='leadFrom'>
-          <option value='facebook'>Facebook</option>
-          <option value='linkedin'>Linkedin</option>
-          <option value='twitter'>Twitter</option>
-          <option value='friend'>A friend</option>
-        </select>
-      </div>
-
-      <div className='form-group flex-full'>
-        <input type='submit' disabled={isLoading} />
-      </div>
+  const validateFileSize = (file: Blob): boolean => {
+    if (!file) {
+      return true
+    }
+    const mb = file.size / 1024 / 1024
+    return mb < 5
+  }
+  return isDone ? (
+    <form style={{ textAlign: 'center' }}>
+      <h2>Check your mail for more detials (:</h2>
+      <button type='button' onClick={() => setIsDone(false)}>
+        Or fill this form once again
+      </button>
     </form>
+  ) : (
+    <Formiz onValidSubmit={submitForm} connect={myForm}>
+      <form
+        noValidate
+        onSubmit={myForm.submitStep}
+        className='demo-form'
+        style={{ minHeight: '16rem' }}
+      >
+        <div className='demo-form__content'>
+          {myForm.currentStep && <h2>{myForm.currentStep.label}</h2>}
+          <FormizStep name='step1' label='General and work status'>
+            <TextField
+              name='name'
+              label='Full Name'
+              required='Name is required'
+            />
+
+            <TextField
+              name='email'
+              label='Email'
+              type='email'
+              required='Email is required'
+              validations={[
+                {
+                  rule: validations.isEmail(),
+                  message: 'Not a valid email'
+                }
+              ]}
+            />
+
+            <TextField
+              name='linkedin'
+              label='Linkedin'
+              required='Please enter a valid linkeding link'
+              validations={[
+                {
+                  rule: (address) =>
+                    address &&
+                    address.match(
+                      /((https?:\/\/)?((www|\w\w)\.)?linkedin\.com\/)((([\w]{2,3})?)|([^/]+\/(([\w|\d-&#?=])+\/?){1,}))$/gm
+                    ),
+                  message:
+                    'Invalid linkedin url. make sure that`s your public link'
+                }
+              ]}
+            />
+            <TextField
+              name='phone_number'
+              label='Phone number'
+              validations={[
+                {
+                  rule: (phone) =>
+                    phone === '' ||
+                    phone === null ||
+                    phone.match(/^[0][5][0|2|3|4|5|9]{1}[-]{0,1}[0-9]{7}$/),
+                  message: 'Invalid israli phone number'
+                }
+              ]}
+            />
+            <UploadField
+              name='cv'
+              label='CV'
+              accept='application/pdf'
+              required='This must be a valid PDF under 5mib'
+              validations={[
+                {
+                  rule: (file) => validateFileSize(file),
+                  message: 'This must be a valid PDF under 5mib'
+                }
+              ]}
+            />
+            <CheckboxField
+              name='workSeek'
+              label="I'm looking for a new challange in my carear"
+            />
+            <CheckboxField
+              name='recruitersApproval'
+              label='I approve sharing my CV and work status with recruiters'
+              required='We will share your CV and empoyment status only with the best
+                          recruiters in the industry.'
+            />
+          </FormizStep>
+          <FormizStep name='step2' label='The challange'>
+            <TextAreaField
+              name='teamMembers'
+              label='Whos your friends? (Use ; to sparete between your team mates email addresses)'
+            />
+            <p>
+              If you want to come alone it's fine (: We will reach out few weeks
+              before the event and set you up with amaizng group
+            </p>
+
+            <SelectField
+              name='subject'
+              options={[
+                { value: 'health', label: 'Health' },
+                { value: 'safety', label: 'Safety' },
+                { value: 'community', label: 'Community' },
+                { value: 'legal', label: 'Legal' }
+              ]}
+            />
+
+            <TextAreaField name='skils' label='What is your skill set' />
+          </FormizStep>
+          <FormizStep name='step3' label='Food Preferences'>
+            <SelectField
+              name='foodPrefs'
+              mutliple={true}
+              label='Your general food preferences'
+              options={[
+                { value: 'vegetarian', label: 'Vegetarian' },
+                { value: 'vegan', label: 'Vegan' },
+                { value: 'kosher', label: 'Kosher' },
+                { value: 'gluten-free', label: 'Gluten Free' }
+              ]}
+            />
+
+            <TextAreaField
+              name='food'
+              label='Wanna Tell us about your food prefernces and alergies?'
+              placeholder='ex. have a life threatening allergy of peanuts'
+            />
+          </FormizStep>
+          <FormizStep name='step4' label='Other Preferences'>
+            <CheckboxField
+              name='party'
+              label="I'm definitely staying for the after party"
+            />
+            <p>The plan is to code from 10 to 22, and dance from 22 to 02</p>
+            <TextAreaField
+              name='questions'
+              label='Any qustions for us?'
+              placeholder=''
+            />
+
+            <SelectField
+              name='leadFrom'
+              mutliple={true}
+              label='And finally, would you mind telling us how you heard about the Dykeathon?'
+              options={[
+                { value: 'facebook', label: 'Facebook' },
+                { value: 'linkedin', label: 'Linkedin' },
+                { value: 'twitter', label: 'Twitter' },
+                { value: 'friend', label: 'Friend' }
+              ]}
+            />
+          </FormizStep>
+        </div>
+
+        <div className='demo-form__footer'>
+          <div className='mr-auto' style={{ minWidth: '6rem' }}>
+            {!myForm.isFirstStep && (
+              <button
+                className='demo-button is-full is-primary'
+                type='button'
+                onClick={myForm.prevStep}
+              >
+                Previous
+              </button>
+            )}
+          </div>
+          <div
+            className='text-sm text-gray-500 p-2 text-center w-full xs:w-auto order-first xs:order-none'
+            style={{ paddingTop: '3rem' }}
+          >
+            <span style={{ textAlign: 'center' }}>
+              {' '}
+              Step {(myForm.currentStep && myForm.currentStep.index + 1) ||
+                0}{' '}
+              of {myForm.steps.length}
+            </span>
+          </div>
+          <div className='ml-auto' style={{ minWidth: '6rem' }}>
+            {myForm.isLastStep ? (
+              <button
+                className='demo-button is-full is-primary'
+                type='submit'
+                disabled={
+                  isLoading || (!myForm.isValid && myForm.isStepSubmitted)
+                }
+              >
+                {isLoading ? 'Loading...' : 'Submit'}
+              </button>
+            ) : (
+              <button
+                className='demo-button is-full is-primary'
+                type='submit'
+                disabled={!myForm.isStepValid && myForm.isStepSubmitted}
+              >
+                Next
+              </button>
+            )}
+          </div>
+        </div>
+      </form>
+    </Formiz>
   )
 }
