@@ -111,7 +111,7 @@ const buildType = (fieldType: string, value: [any] | any, fieldDesc) => {
       break
     case 'number':
       field = {
-        number: value
+        number: Number(value)
       }
       break
     case 'url':

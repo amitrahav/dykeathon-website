@@ -56,11 +56,11 @@ body{
 
 .notion-page-icon-wrapper img.notion-page-icon{
     box-shadow: none!important;
-    top: 0!important;
-    max-height: 20vh;
-    max-width: 20vh;
-    height: 250px;
-    width: 250px;
+    top: -25px!important;
+    max-height: 150px;
+    max-width: 150px;
+    height: 150px;
+    width: 150px;
 }
 
 .notion-page-content-inner > h3{

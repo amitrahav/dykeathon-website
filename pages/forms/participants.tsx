@@ -95,7 +95,7 @@ export default function ParticipantsPreRegister() {
         noValidate
         onSubmit={myForm.submitStep}
         className='demo-form'
-        style={{ minHeight: '16rem' }}
+        style={{ minHeight: '16rem', paddingBottom: 70 }}
       >
         <div className='demo-form__content'>
           {myForm.currentStep && <h2>{myForm.currentStep.label}</h2>}
@@ -122,7 +122,6 @@ export default function ParticipantsPreRegister() {
             <TextField
               name='linkedin'
               label='Linkedin'
-              required='Please enter a valid linkeding link'
               validations={[
                 {
                   rule: (address) =>
@@ -152,10 +151,9 @@ export default function ParticipantsPreRegister() {
               name='cv'
               label='CV'
               accept='application/pdf'
-              required='This must be a valid PDF under 5mib'
               validations={[
                 {
-                  rule: (file) => validateFileSize(file),
+                  rule: (file) => !file || validateFileSize(file),
                   message: 'This must be a valid PDF under 5mib'
                 }
               ]}
@@ -183,6 +181,7 @@ export default function ParticipantsPreRegister() {
 
             <SelectField
               name='subject'
+              required='Please choose a subject that your going to hack.'
               options={[
                 { value: 'health', label: 'Health' },
                 { value: 'safety', label: 'Safety' },
@@ -191,7 +190,11 @@ export default function ParticipantsPreRegister() {
               ]}
             />
 
-            <TextAreaField name='skils' label='What is your skill set' />
+            <TextAreaField
+              name='skils'
+              label='What is your skill set'
+              required='Please help us get to know you better'
+            />
           </FormizStep>
           <FormizStep name='step3' label='Food Preferences'>
             <SelectField
@@ -227,6 +230,7 @@ export default function ParticipantsPreRegister() {
             <TextField
               name='children'
               label='How many children do you want to attend at our daycare durring the event?'
+              type='number'
             />
             <p>
               The LGBTQ TLV center kindergarten teacher will operate a daycare
