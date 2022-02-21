@@ -50,7 +50,7 @@ body{
 }
 
 .notion-page-icon-wrapper {
-    top: -100px !important;
+    top: -10px !important;
     max-height:min-content;
 }
 

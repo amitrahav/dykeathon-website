@@ -125,7 +125,7 @@ export default function ParticipantsPreRegister() {
               validations={[
                 {
                   rule: (address) =>
-                    address &&
+                    !address ||
                     address.match(
                       /((https?:\/\/)?((www|\w\w)\.)?linkedin\.com\/)((([\w]{2,3})?)|([^/]+\/(([\w|\d-&#?=])+\/?){1,}))$/gm
                     ),
@@ -153,7 +153,7 @@ export default function ParticipantsPreRegister() {
               accept='application/pdf'
               validations={[
                 {
-                  rule: (file) => !file || validateFileSize(file),
+                  rule: (file: null | Blob) => !file || validateFileSize(file),
                   message: 'This must be a valid PDF under 5mib'
                 }
               ]}

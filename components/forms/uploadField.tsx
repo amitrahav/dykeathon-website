@@ -20,6 +20,7 @@ export default function UploadField(props) {
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     accept: accept || 'image/*',
+    maxSize: 5,
     onDrop: (acceptedFiles) => {
       if (!acceptedFiles.length) {
         setValue(null)
