@@ -17,7 +17,6 @@ export const CustomFont: React.FC<{ site: types.Site }> = ({ site }) => {
     )
     .join('&')
   const googleFontsLink = `https://fonts.googleapis.com/css?${googleFontFamilies}&display=swap`
-  console.log({ googleFontsLink })
   const cssFontFamilies = fontFamilies.map((font) => `"${font}"`).join(', ')
 
   return (

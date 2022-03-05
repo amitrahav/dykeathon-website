@@ -120,7 +120,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const showTableOfContents = !!isBlogPost
   const minTableOfContentsItems = 3
 
-  const socialImage = mapNotionImageUrl(config.defaultPageCover, block)
+  const socialImage = config.defaultPageCover
 
   const socialDescription =
     getPageDescription(block, recordMap) ?? config.description
