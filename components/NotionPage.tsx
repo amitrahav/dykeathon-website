@@ -224,8 +224,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
               shallow={shallow}
               locale={locale}
             >
-              {/* <a {...props} /> */}
-              <p>dfdsd</p>
+              <a {...props} />
             </Link>
           ),
           code: Code,
