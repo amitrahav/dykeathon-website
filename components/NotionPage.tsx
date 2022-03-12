@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { useSearchParam } from 'react-use'
 // import BodyClassName from 'react-body-classname'
 // import useDarkMode from 'use-dark-mode'
-import { PageBlock } from 'notion-types'
+// import { PageBlock } from 'notion-types'
 
 // core notion renderer
 import { NotionRenderer, Code, Collection, CollectionRow } from 'react-notion-x'
@@ -224,7 +224,8 @@ export const NotionPage: React.FC<types.PageProps> = ({
               shallow={shallow}
               locale={locale}
             >
-              <a {...props} />
+              {/* <a {...props} /> */}
+              <p>dfdsd</p>
             </Link>
           ),
           code: Code,

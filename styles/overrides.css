@@ -14,15 +14,19 @@ body{
 
 .notion-page{
     padding-bottom: 0!important;
-    margin-top: -170px;
+    margin-top: -220px;
 }
 
 .nav-header .breadcrumb{
     color: var(--purple);
 }
 
-.notion-header .breadcrumb .icon{
+.notion-header .breadcrumb .icon {
     top: -3px;
+    background-color: var(--purple);
+    height: 20px!important; 
+    width: 20px!important;
+    border-radius: 50px;
 }
 
 .notion-frame{
@@ -37,12 +41,14 @@ body{
     max-width: 100%;
     border-radius: 0;
     min-height: 200px;
+    object-position: center 100%!important;
 }
 
 .notion-title{
     color: var(--white);
     font-style: italic;
     font-weight: 800;
+    margin-bottom: 90px;
 }
 
 .notion-hr{

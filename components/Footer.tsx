@@ -18,7 +18,12 @@ export const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.copyright}>Copyright 2021 {config.author}</div>
 
-      {hasMounted ? <p>Logos and more details soon</p> : null}
+      {hasMounted ? (
+        <img
+          src={`https://${process.env.NEXT_PUBLIC_DOMAIN}/lgbt-logo-dark.jpeg`}
+          style={{ maxHeight: 50 }}
+        />
+      ) : null}
 
       <div className={styles.social}>
         {config.twitter && (
