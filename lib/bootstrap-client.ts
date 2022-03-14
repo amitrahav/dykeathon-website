@@ -14,8 +14,8 @@ export function bootstrap() {
     ██ ███ ██   ██           ██  ██ ██   ██        ██        ██   ██         ██      ██    ██   ██    ██ 
      ███ ███    ███████      ██   ████   ███████   ███████   ██████          ██       ██████     ██████  
           
-     Register as a tech-mentor and win a dyke mentee at https://3can075ldru.typeform.com/to/rLXEV8ia.
+     Register as a tech-mentor and win a dyke mentee at https://3can075ldru.typeform.com/to/xYkeN85K
 
-     (This site is built using Notion, Next.js, and https://github.com/NotionX/react-notion-x).
+     (This site is built using Notion, Next.js, and https://github.com/NotionX/react-notion-x)
 `)
 }
