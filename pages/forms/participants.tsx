@@ -162,12 +162,12 @@ export default function ParticipantsPreRegister() {
               name='workSeek'
               label="I'm looking for a new challange in my carear"
             />
-            <CheckboxField
+            {/* <CheckboxField
               name='recruitersApproval'
               label='I approve sharing my CV and work status with recruiters'
               required='We will share your CV and empoyment status only with the best
                           recruiters in the industry.'
-            />
+            /> */}
           </FormizStep>
           <FormizStep name='step2' label='The challange'>
             <TextAreaField
@@ -181,6 +181,7 @@ export default function ParticipantsPreRegister() {
 
             <SelectField
               name='subject'
+              label='Preffered subject for project'
               required='Please choose a subject that your going to hack.'
               options={[
                 { value: 'health', label: 'Health' },
@@ -227,7 +228,7 @@ export default function ParticipantsPreRegister() {
               placeholder=''
             />
 
-            <TextField
+            {/* <TextField
               name='children'
               label='How many children do you want to attend at our daycare durring the event?'
               type='number'
@@ -235,7 +236,7 @@ export default function ParticipantsPreRegister() {
             <p>
               The LGBTQ TLV center kindergarten teacher will operate a daycare
               for the dykeathon children between 16:00-22:00
-            </p>
+            </p> */}
 
             <SelectField
               name='leadFrom'
