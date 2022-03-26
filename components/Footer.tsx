@@ -21,22 +21,44 @@ export const Footer = () => {
 
       {hasMounted ? (
         <div className={styles.logos}>
-          <img
-            src={`https://${process.env.NEXT_PUBLIC_DOMAIN}/lgbt-logo-dark.jpeg`}
-            style={{ maxHeight: 50 }}
-          />
-          <img
-            src={`https://s3.amazonaws.com/tracxn-data-image/logo/company/5da9fa5a2fb4fffa1cc11b92dbc2e423`}
-            style={{ maxHeight: 50 }}
-          />
-          <img
-            src={`https://soupizza.co.il/wp-content/uploads/2016/07/logo-intuit-preferred.png`}
-            style={{ maxHeight: 50 }}
-          />
-          <img
-            src={`https://image.pitchbook.com/l6SIXOX224HxvqLkYPr2xv6LpHQ1588754661524_200x200`}
-            style={{ maxHeight: 50 }}
-          />
+          <a
+            href='https://lgbtqcenter.org.il/'
+            target='_blank'
+            title='TLV LGBTQ center'
+          >
+            <img
+              src={`https://${process.env.NEXT_PUBLIC_DOMAIN}/lgbt-logo-dark.jpeg`}
+              style={{ maxHeight: 50 }}
+            />
+          </a>
+          <a href='https://www.is.com/' target='_blank' title='Ironsource'>
+            <img
+              src={`https://s3.amazonaws.com/tracxn-data-image/logo/company/5da9fa5a2fb4fffa1cc11b92dbc2e423`}
+              style={{ maxHeight: 50 }}
+            />
+          </a>
+          <a href='https://www.intuit.com/' target='_blank' title='Intuit'>
+            <img
+              src={`https://soupizza.co.il/wp-content/uploads/2016/07/logo-intuit-preferred.png`}
+              style={{ maxHeight: 50 }}
+            />
+          </a>
+          <a
+            href='https://www.f2vc.com/'
+            target='_blank'
+            title='F2 Venture Capital'
+          >
+            <img
+              src={`https://image.pitchbook.com/l6SIXOX224HxvqLkYPr2xv6LpHQ1588754661524_200x200`}
+              style={{ maxHeight: 50 }}
+            />
+          </a>
+          <a href='https://hourone.ai/' target='_blank' title='HourOne.ai'>
+            <img
+              src={`https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/auxhogpcwgr19zub2qgi`}
+              style={{ maxHeight: 50 }}
+            />
+          </a>
         </div>
       ) : null}
     </footer>

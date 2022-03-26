@@ -64,6 +64,10 @@
   display: flex;
   justify-content: flex-start;
 }
+.logos img{
+  max-height: 50px;
+  margin: 0 5px;
+}
 
 .settings,
 .social {
