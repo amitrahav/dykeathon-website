@@ -40,7 +40,7 @@ body{
     box-shadow: none;
     max-width: 100%;
     border-radius: 0;
-    min-height: 200px;
+    min-height: calc(100vw / 3);
     object-position: center 100%!important;
 }
 
