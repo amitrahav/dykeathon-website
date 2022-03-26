@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { FaTwitter, FaGithub, FaLinkedin } from 'react-icons/fa'
 // import { IoSunnyOutline, IoMoonSharp } from 'react-icons/io5'
 import * as config from 'lib/config'
 
@@ -16,52 +15,30 @@ export const Footer = () => {
 
   return (
     <footer className={styles.footer}>
-      <div className={styles.copyright}>Copyright 2021 {config.author}</div>
+      <div className={styles.copyright}>
+        Copyright {new Date().getFullYear()} {config.author}
+      </div>
 
       {hasMounted ? (
-        <img
-          src={`https://${process.env.NEXT_PUBLIC_DOMAIN}/lgbt-logo-dark.jpeg`}
-          style={{ maxHeight: 50 }}
-        />
+        <div className={styles.logos}>
+          <img
+            src={`https://${process.env.NEXT_PUBLIC_DOMAIN}/lgbt-logo-dark.jpeg`}
+            style={{ maxHeight: 50 }}
+          />
+          <img
+            src={`https://s3.amazonaws.com/tracxn-data-image/logo/company/5da9fa5a2fb4fffa1cc11b92dbc2e423`}
+            style={{ maxHeight: 50 }}
+          />
+          <img
+            src={`https://soupizza.co.il/wp-content/uploads/2016/07/logo-intuit-preferred.png`}
+            style={{ maxHeight: 50 }}
+          />
+          <img
+            src={`https://image.pitchbook.com/l6SIXOX224HxvqLkYPr2xv6LpHQ1588754661524_200x200`}
+            style={{ maxHeight: 50 }}
+          />
+        </div>
       ) : null}
-
-      <div className={styles.social}>
-        {config.twitter && (
-          <a
-            className={styles.twitter}
-            href={`https://twitter.com/${config.twitter}`}
-            title={`Twitter @${config.twitter}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <FaTwitter />
-          </a>
-        )}
-
-        {config.github && (
-          <a
-            className={styles.github}
-            href={`https://github.com/${config.github}`}
-            title={`GitHub @${config.github}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <FaGithub />
-          </a>
-        )}
-
-        {config.linkedin && (
-          <a
-            className={styles.linkedin}
-            href={`https://www.linkedin.com/in/${config.linkedin}`}
-            title={`LinkedIn ${config.author}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <FaLinkedin />
-          </a>
-        )}
-      </div>
     </footer>
   )
 }
