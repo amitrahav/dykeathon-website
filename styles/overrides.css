@@ -14,7 +14,7 @@ body{
 
 .notion-page{
     padding-bottom: 0!important;
-    margin-top: -220px;
+    margin-top: -250px;
 }
 
 .nav-header .breadcrumb{
@@ -48,7 +48,7 @@ body{
     color: var(--white);
     font-style: italic;
     font-weight: 800;
-    margin-bottom: 90px;
+    margin-bottom: 100px;
 }
 
 .notion-hr{
