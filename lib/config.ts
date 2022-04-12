@@ -108,7 +108,8 @@ export const api = {
   createPreviewImage: `${apiBaseUrl}/create-preview-image`,
   searchNotion: `${apiBaseUrl}/search-notion`,
   getParticipantsNum: `${apiBaseUrl}/participants`,
-  registerParticipant: `${apiBaseUrl}/registerParticipant`
+  registerParticipant: `${apiBaseUrl}/registerParticipant`,
+  getTeams: `${apiBaseUrl}/teams`
 }
 
 // ----------------------------------------------------------------------------
