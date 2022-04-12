@@ -28,7 +28,7 @@ export default async (
       // @ts-ignore
       domainColor: proj.properties['תחום'].select.color,
       // @ts-ignore
-      participants: proj.properties.NamesClean.formula.string.replaceAll(
+      participants: proj.properties.NamesClean.formula?.string?.replaceAll(
         ',',
         ', '
       ),
