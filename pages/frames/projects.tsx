@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { api } from '../../lib/config'
+import Image from 'next/image'
 
 export default function Participants(props) {
   const [data, setData] = useState([])
@@ -60,12 +61,7 @@ export default function Participants(props) {
           ) : (
             <h2>{team.title}</h2>
           )}
-          {team.image && (
-            <img
-              src={team.image}
-              style={{ maxWidth: '100%', maxHeight: 300 }}
-            />
-          )}
+          {team.image && <Image src={team.image} />}
           <p style={{ textAlign: 'left' }}>By: {team.participants}</p>
         </div>
       ))}
