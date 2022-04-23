@@ -21,6 +21,7 @@ export const Footer = () => {
 
       {hasMounted ? (
         <div className={styles.logos}>
+          2022 sponsors:
           <a
             href='https://lgbtqcenter.org.il/'
             target='_blank'
@@ -31,9 +32,25 @@ export const Footer = () => {
               style={{ maxHeight: 50 }}
             />
           </a>
-          <a href='https://www.is.com/' target='_blank' title='Ironsource'>
+          <a href='https://www.is.com/' target='_blank' title='IronSource'>
             <img
               src={`https://s3.amazonaws.com/tracxn-data-image/logo/company/5da9fa5a2fb4fffa1cc11b92dbc2e423`}
+              style={{ maxHeight: 50 }}
+            />
+          </a>
+          <a
+            href='https://www.bigpanda.io/'
+            target='_blank'
+            title='bigpanda.io'
+          >
+            <img
+              src={`https://${process.env.NEXT_PUBLIC_DOMAIN}/bigpanda.png`}
+              style={{ maxHeight: 50 }}
+            />
+          </a>
+          <a href='https://www.tabnine.com/' target='_blank' title='Tabnine'>
+            <img
+              src={`https://eduemailshop.com/wp-content/uploads/2021/07/Tabnine-EduEmailShop.png`}
               style={{ maxHeight: 50 }}
             />
           </a>

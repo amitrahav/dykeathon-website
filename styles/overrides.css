@@ -80,6 +80,10 @@ body{
     margin-bottom: 0!important;
 }
 
+figure.notion-asset-wrapper-drive > div {
+    width: 100%;
+}
+
 form {
     min-width: min-content;
     margin: 0 auto;
