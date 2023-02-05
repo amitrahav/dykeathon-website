@@ -13,9 +13,9 @@ module.exports = {
   author: 'Amit Rahav',
 
   // open graph metadata (optional)
-  description: 'TLV hackathon for queer women',
+  description: 'Queer women* hacking LGBTQ+ issues',
   socialImageTitle: 'Dyke\'athon',
-  socialImageSubtitle: 'TLV hackathon for queer women',
+  socialImageSubtitle: 'Queer women* hacking LGBTQ+ issues',
 
   // social usernames (optional)
   // twitter: 'transitive_bs',
@@ -25,7 +25,7 @@ module.exports = {
   // default notion icon and cover images for site-wide consistency (optional)
   // page-specific values will override these site-wide defaults
   defaultPageIcon: null,
-  defaultPageCover: `https://${process.env.NEXT_PUBLIC_DOMAIN}/wb-share.jpeg`,
+  defaultPageCover: `https://${process.env.NEXT_PUBLIC_DOMAIN}/dykeathon.png`,
   defaultPageCoverPosition: 0.5,
 
   // image CDN host to proxy all image requests through (optional)
