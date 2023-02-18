@@ -21,6 +21,7 @@ body{
 .notion-h1, .notion-h2, .notion-h3 {
     text-align: center;
     width: 100%;
+    margin: 0;
 }
 
 .notion-page {
@@ -31,6 +32,7 @@ body{
     color: var(--white);
     font-style: italic;
     font-weight: 800;
+    margin-top: 60px;
 }
 
 .notion-page-icon-hero.notion-page-icon-image,
@@ -64,13 +66,6 @@ body{
     object-position: center 100%!important;
 }
 
-/* .notion-title{
-    color: var(--white);
-    font-style: italic;
-    font-weight: 800;
-    margin-bottom: 100px;
-} */
-
 .notion-hr{
     border-color: var(--blue);
 }
@@ -100,15 +95,15 @@ body{
     margin-bottom: 0!important;
 }
 
-.notion-page-content>article figure {
+figure.notion-asset-wrapper-drive {
     margin: 0!important;
     padding: 0 20px;
 
 }
 
-/* figure.notion-asset-wrapper-drive > div {
+figure.notion-asset-wrapper-drive > div {
     width: 100%;
-} */
+}
 
 /* form {
     min-width: min-content;
