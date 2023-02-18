@@ -7,7 +7,7 @@ export default function Participants(props) {
   const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (isLoading) return
+    if (isLoading || !!data) return
     setLoading(true)
     fetch(api.getTeams, {
       method: 'GET',
@@ -20,7 +20,7 @@ export default function Participants(props) {
         setData(data)
         setLoading(false)
       })
-  }, [])
+  }, [isLoading, data])
 
   return (
     <div

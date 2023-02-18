@@ -1,10 +1,10 @@
-import { Formiz, FormizStep, useForm } from '@formiz/core'
-import * as validations from '@formiz/validations'
-import TextField from '../../components/forms/textField'
-import UploadField from '../../components/forms/uploadField'
-import CheckboxField from '../../components/forms/checkboxField'
-import TextAreaField from '../../components/forms/textAreaField'
-import SelectField from '../../components/forms/selectField'
+import { Formiz, useForm } from '@formiz/core'
+// import * as validations from '@formiz/validations'
+// import TextField from '../../components/forms/textField'
+// import UploadField from '../../components/forms/uploadField'
+// import CheckboxField from '../../components/forms/checkboxField'
+// import TextAreaField from '../../components/forms/textAreaField'
+// import SelectField from '../../components/forms/selectField'
 
 import React, { useEffect } from 'react'
 import { api } from 'lib/config'
@@ -67,13 +67,13 @@ export default function ParticipantsPreRegister() {
       })
   }
 
-  const validateFileSize = (file: Blob): boolean => {
-    if (!file) {
-      return true
-    }
-    const mb = file.size / 1024 / 1024
-    return mb < 5
-  }
+  // const validateFileSize = (file: Blob): boolean => {
+  //   if (!file) {
+  //     return true
+  //   }
+  //   const mb = file.size / 1024 / 1024
+  //   return mb < 5
+  // }
 
   useEffect(function onFirstMount() {
     let queryParams = new URLSearchParams()
@@ -97,160 +97,6 @@ export default function ParticipantsPreRegister() {
         className='demo-form'
         style={{ minHeight: '16rem', paddingBottom: 70 }}
       >
-        <div className='demo-form__content'>
-          {myForm.currentStep && <h2>{myForm.currentStep.label}</h2>}
-          <FormizStep name='step1' label='General and work status'>
-            <TextField
-              name='name'
-              label='Full Name'
-              required='Name is required'
-            />
-
-            <TextField
-              name='email'
-              label='Email'
-              type='email'
-              required='Email is required'
-              validations={[
-                {
-                  rule: validations.isEmail(),
-                  message: 'Not a valid email'
-                }
-              ]}
-            />
-
-            <TextField
-              name='linkedin'
-              label='Linkedin'
-              validations={[
-                {
-                  rule: (address) =>
-                    !address ||
-                    address.match(
-                      /((https?:\/\/)?((www|\w\w)\.)?linkedin\.com\/)((([\w]{2,3})?)|([^/]+\/(([\w|\d-&#?=])+\/?){1,}))$/gm
-                    ),
-                  message:
-                    'Invalid linkedin url. make sure that`s your public link'
-                }
-              ]}
-            />
-            <TextField
-              name='phoneNumber'
-              label='Phone number'
-              validations={[
-                {
-                  rule: (phone) =>
-                    phone === '' ||
-                    phone === null ||
-                    phone.match(/^[0][5][0|2|3|4|5|9]{1}[-]{0,1}[0-9]{7}$/),
-                  message: 'Invalid israli phone number'
-                }
-              ]}
-            />
-            <UploadField
-              name='cv'
-              label='CV'
-              accept='application/pdf'
-              validations={[
-                {
-                  rule: (file: null | Blob) => !file || validateFileSize(file),
-                  message: 'This must be a valid PDF under 5mib'
-                }
-              ]}
-            />
-            <CheckboxField
-              name='workSeek'
-              label="I'm looking for a new challange in my carear"
-            />
-            {/* <CheckboxField
-              name='recruitersApproval'
-              label='I approve sharing my CV and work status with recruiters'
-              required='We will share your CV and empoyment status only with the best
-                          recruiters in the industry.'
-            /> */}
-          </FormizStep>
-          <FormizStep name='step2' label='The challange'>
-            <TextAreaField
-              name='teamMembers'
-              label='Whos your friends? (Use ; to sparete between your team mates email addresses)'
-            />
-            <p>
-              If you want to come alone it's fine (: We will reach out few weeks
-              before the event and set you up with amaizng group
-            </p>
-
-            <SelectField
-              name='subject'
-              label='Preffered subject for project'
-              required='Please choose a subject that your going to hack.'
-              options={[
-                { value: 'health', label: 'Health' },
-                { value: 'safety', label: 'Safety' },
-                { value: 'community', label: 'Community' },
-                { value: 'legal', label: 'Legal' }
-              ]}
-            />
-
-            <TextAreaField
-              name='skils'
-              label='What is your skill set'
-              required='Please help us get to know you better'
-            />
-          </FormizStep>
-          <FormizStep name='step3' label='Food Preferences'>
-            <SelectField
-              name='foodPrefs'
-              mutliple={true}
-              label='Your general food preferences'
-              options={[
-                { value: 'vegetarian', label: 'Vegetarian' },
-                { value: 'vegan', label: 'Vegan' },
-                { value: 'kosher', label: 'Kosher' },
-                { value: 'gluten-free', label: 'Gluten Free' }
-              ]}
-            />
-
-            <TextAreaField
-              name='food'
-              label='Wanna Tell us about your food prefernces and alergies?'
-              placeholder='ex. have a life threatening allergy of peanuts'
-            />
-          </FormizStep>
-          <FormizStep name='step4' label='Other Preferences'>
-            <CheckboxField
-              name='party'
-              label="I'm definitely staying for the after party"
-            />
-            <p>The plan is to code from 10 to 22, and dance from 22 to 02</p>
-            <TextAreaField
-              name='questions'
-              label='Any qustions for us?'
-              placeholder=''
-            />
-
-            {/* <TextField
-              name='children'
-              label='How many children do you want to attend at our daycare durring the event?'
-              type='number'
-            />
-            <p>
-              The LGBTQ TLV center kindergarten teacher will operate a daycare
-              for the dykeathon children between 16:00-22:00
-            </p> */}
-
-            <SelectField
-              name='leadFrom'
-              mutliple={true}
-              label='And finally, would you mind telling us how you heard about the Dykeathon?'
-              options={[
-                { value: 'facebook', label: 'Facebook' },
-                { value: 'linkedin', label: 'Linkedin' },
-                { value: 'twitter', label: 'Twitter' },
-                { value: 'friend', label: 'Friend' }
-              ]}
-            />
-          </FormizStep>
-        </div>
 
         <div className='demo-form__footer'>
           <div

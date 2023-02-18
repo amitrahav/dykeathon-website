@@ -147,7 +147,11 @@ export const apiBaseUrl = `/api`
 export const api = {
   searchNotion: `${apiBaseUrl}/search-notion`,
   getNotionPageInfo: `${apiBaseUrl}/notion-page-info`,
-  getSocialImage: `${apiBaseUrl}/social-image`
+  getSocialImage: `${apiBaseUrl}/social-image`,
+  getParticipantsNum: `${apiBaseUrl}/participants`,
+  registerParticipant: `${apiBaseUrl}/registerParticipant`,
+  getTeams: `${apiBaseUrl}/teams`,
+  getRandomQuestion: `${apiBaseUrl}/randomQuestion`
 }
 
 // ----------------------------------------------------------------------------

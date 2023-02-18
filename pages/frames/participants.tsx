@@ -6,7 +6,7 @@ export default function Participants(props) {
   const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (isLoading) return
+    if (isLoading || !!data) return
     setLoading(true)
     fetch(api.getParticipantsNum, {
       method: 'GET',
@@ -19,7 +19,7 @@ export default function Participants(props) {
         setData(data.num)
         setLoading(false)
       })
-  }, [])
+  }, [isLoading, data])
 
   return (
     <h2
