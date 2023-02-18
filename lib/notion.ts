@@ -1,51 +1,64 @@
-import { NotionAPI } from 'notion-client'
 import { ExtendedRecordMap, SearchParams, SearchResults } from 'notion-types'
-import { getPreviewImages } from './get-preview-images'
-import { mapNotionImageUrl } from './map-image-url'
+import { mergeRecordMaps } from 'notion-utils'
+import pMap from 'p-map'
+import pMemoize from 'p-memoize'
 
-export const notion = new NotionAPI({
-  apiBaseUrl: process.env.NOTION_API_BASE_URL
-})
+import {
+  isPreviewImageSupportEnabled,
+  navigationLinks,
+  navigationStyle
+} from './config'
+import { notion } from './notion-api'
+import { getPreviewImageMap } from './preview-images'
+
+const getNavigationLinkPages = pMemoize(
+  async (): Promise<ExtendedRecordMap[]> => {
+    const navigationLinkPageIds = (navigationLinks || [])
+      .map((link) => link.pageId)
+      .filter(Boolean)
+
+    if (navigationStyle !== 'default' && navigationLinkPageIds.length) {
+      return pMap(
+        navigationLinkPageIds,
+        async (navigationLinkPageId) =>
+          notion.getPage(navigationLinkPageId, {
+            chunkLimit: 1,
+            fetchMissingBlocks: false,
+            fetchCollections: false,
+            signFileUrls: false
+          }),
+        {
+          concurrency: 4
+        }
+      )
+    }
+
+    return []
+  }
+)
 
 export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
-  const recordMap = await notion.getPage(pageId)
-  const blockIds = Object.keys(recordMap.block)
+  let recordMap = await notion.getPage(pageId)
 
-  const imageUrls: string[] = blockIds
-    .map((blockId) => {
-      const block = recordMap.block[blockId]?.value
+  if (navigationStyle !== 'default') {
+    // ensure that any pages linked to in the custom navigation header have
+    // their block info fully resolved in the page record map so we know
+    // the page title, slug, etc.
+    const navigationLinkRecordMaps = await getNavigationLinkPages()
 
-      if (block) {
-        if (block.type === 'image') {
-          const source = block.properties?.source?.[0]?.[0]
+    if (navigationLinkRecordMaps?.length) {
+      recordMap = navigationLinkRecordMaps.reduce(
+        (map, navigationLinkRecordMap) =>
+          mergeRecordMaps(map, navigationLinkRecordMap),
+        recordMap
+      )
+    }
+  }
 
-          if (source) {
-            return {
-              block,
-              url: source
-            }
-          }
-        }
-
-        if ((block.format as any)?.page_cover) {
-          const source = (block.format as any).page_cover
-
-          return {
-            block,
-            url: source
-          }
-        }
-      }
-
-      return null
-    })
-    .filter(Boolean)
-    .map(({ block, url }) => mapNotionImageUrl(url, block))
-    .filter(Boolean)
-
-  const urls = Array.from(new Set(imageUrls))
-  const previewImageMap = await getPreviewImages(urls)
-  ;(recordMap as any).preview_images = previewImageMap
+  if (isPreviewImageSupportEnabled) {
+    const previewImageMap = await getPreviewImageMap(recordMap)
+    ;(recordMap as any).preview_images = previewImageMap
+  }
 
   return recordMap
 }

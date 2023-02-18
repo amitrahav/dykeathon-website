@@ -6,21 +6,19 @@ a {
   color: inherit;
   text-decoration: none;
 }
-_
+
 body,
 html {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 body {
+  --notion-font: "Josefin Sans", -apple-system, BlinkMacSystemFont,
+  'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
+  'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: var(--notion-font);
   overflow-x: hidden;
-}
-
-.utterances {
-  max-width: 100% !important;
 }
 
 .static-tweet blockquote {
@@ -36,6 +34,7 @@ body {
   width: 1.2em !important;
 }
 
-
-/*================================================================ ME =================================================================*/
-
+.searchInput {
+  color: var(--fg-color);
+  caret-color: var(--fg-color);
+}
