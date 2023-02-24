@@ -24,7 +24,7 @@ body{
     margin: 0;
 }
 
-.notion-page {
+.notion-page.index-page {
     margin-top: -145px;
 }
 
@@ -34,9 +34,9 @@ body{
     margin-top: 60px;
 }
 
-.notion-page-icon-hero.notion-page-icon-image,
-.notion-page-icon-hero.notion-page-icon-image span, 
-.notion-page-icon-hero.notion-page-icon-image img {
+.index-page .notion-page-icon-hero.notion-page-icon-image,
+.index-page .notion-page-icon-hero.notion-page-icon-image span, 
+.index-page .notion-page-icon-hero.notion-page-icon-image img {
     border-radius: 0;
     box-shadow: none;
 }
@@ -59,8 +59,15 @@ body{
     height: auto!important;
 }
 
-.notion-page-cover-wrapper, .notion-page-cover-wrapper span, .notion-page-cover-wrapper img{
+.notion-page-cover-wrapper, 
+.notion-page-cover-wrapper span, 
+.notion-page-cover-wrapper img{
     min-height: 250px!important;
+}
+
+.notion-page-cover-wrapper, 
+.notion-page-cover-wrapper span, 
+.notion-page-cover-wrapper img {
     height: 100%!important;
     object-position: center 100%!important;
 }
@@ -100,9 +107,9 @@ figure.notion-asset-wrapper-drive {
 
 }
 
-figure.notion-asset-wrapper-drive > div {
+/* figure.notion-asset-wrapper-drive > div {
     width: 100%;
-}
+} */
 
 /* form {
     min-width: min-content;
