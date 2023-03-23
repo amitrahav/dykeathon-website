@@ -9,11 +9,18 @@ import { FaYoutube } from '@react-icons/all-files/fa/FaYoutube'
 import { FaZhihu } from '@react-icons/all-files/fa/FaZhihu'
 import { IoMoonSharp } from '@react-icons/all-files/io5/IoMoonSharp'
 import { IoSunnyOutline } from '@react-icons/all-files/io5/IoSunnyOutline'
+import { makeStyles } from "@material-ui/core/styles";
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import Box from '@mui/material/Box';
+
+
 
 import * as config from '@/lib/config'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
 import styles from './styles.module.css'
+import { Hidden } from '@material-ui/core'
 
 // TODO: merge the data and icons from PageSocial with the social links in Footer
 
@@ -33,110 +40,143 @@ export const FooterImpl: React.FC = () => {
     setHasMounted(true)
   }, [])
 
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      backgroundColor: "#f2f2f2",
+      padding: theme.spacing(5, 0),
+    },
+    logo: {
+      maxWidth: "100%",
+      height: "auto",
+    },
+  }));
+  
+    
+const itemData = [
+  {'img':'/unity.png', 'title':'logo1'},
+  // {'img':'/unity.png', 'title':'logo2'},
+  // {'img':'/unity.png', 'title':'logo3'},
+]
+
   return (
     <footer className={styles.footer}>
-      <div className={styles.copyright}> (c) {new Date().getFullYear()} {config.author}</div>
+    <div className={styles.copyright}> (c) {new Date().getFullYear()} {config.author}</div>
+    <ImageList sx={{width: 500, height: 450}} cols={3} rowHeight={164}>
+  {itemData.map((item) => (
+    <ImageListItem key={item.img}>
+      <img
+        src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+        srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+        alt={item.title}
+        loading="lazy"
+      />
+    </ImageListItem>
+  ))}
+</ImageList>
 
-      <div className={styles.settings}>
-        {hasMounted && (
-          <a
-            className={styles.toggleDarkMode}
-            href='#'
-            role='button'
-            onClick={onToggleDarkMode}
-            title='Toggle dark mode'
-          >
-            {isDarkMode ? <IoMoonSharp /> : <IoSunnyOutline />}
-          </a>
-        )}
-      </div>
 
-      <div className={styles.social}>
-        {config.twitter && (
-          <a
-            className={styles.twitter}
-            href={`https://twitter.com/${config.twitter}`}
-            title={`Twitter @${config.twitter}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <FaTwitter />
-          </a>
-        )}
 
-        {config.mastodon && (
-          <a
-            className={styles.mastodon}
-            href={config.mastodon}
-            title={`Mastodon ${config.getMastodonHandle()}`}
-            rel='me'
-          >
-            <FaMastodon />
-          </a>
-        )}
 
-        {config.zhihu && (
-          <a
-            className={styles.zhihu}
-            href={`https://zhihu.com/people/${config.zhihu}`}
-            title={`Zhihu @${config.zhihu}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <FaZhihu />
-          </a>
-        )}
+    <div className={styles.settings}>
+      {hasMounted && (
+        <a
+          className={styles.toggleDarkMode}
+          href='#'
+          role='button'
+          onClick={onToggleDarkMode}
+          title='Toggle dark mode'
+        >
+          {isDarkMode ? <IoMoonSharp /> : <IoSunnyOutline />}
+        </a>
+      )}
+    </div>
 
-        {config.github && (
-          <a
-            className={styles.github}
-            href={`https://github.com/${config.github}`}
-            title={`GitHub @${config.github}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <FaGithub />
-          </a>
-        )}
+    <div className={styles.social}>
+      {config.twitter && (
+        <a
+          className={styles.twitter}
+          href={`https://twitter.com/${config.twitter}`}
+          title={`Twitter @${config.twitter}`}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <FaTwitter />
+        </a>
+      )}
 
-        {config.linkedin && (
-          <a
-            className={styles.linkedin}
-            href={`https://www.linkedin.com/in/${config.linkedin}`}
-            title={`LinkedIn ${config.author}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <FaLinkedin />
-          </a>
-        )}
+      {config.mastodon && (
+        <a
+          className={styles.mastodon}
+          href={config.mastodon}
+          title={`Mastodon ${config.getMastodonHandle()}`}
+          rel='me'
+        >
+          <FaMastodon />
+        </a>
+      )}
 
-        {config.newsletter && (
-          <a
-            className={styles.newsletter}
-            href={`${config.newsletter}`}
-            title={`Newsletter ${config.author}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <FaEnvelopeOpenText />
-          </a>
-        )}
+      {config.zhihu && (
+        <a
+          className={styles.zhihu}
+          href={`https://zhihu.com/people/${config.zhihu}`}
+          title={`Zhihu @${config.zhihu}`}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <FaZhihu />
+        </a>
+      )}
 
-        {config.youtube && (
-          <a
-            className={styles.youtube}
-            href={`https://www.youtube.com/${config.youtube}`}
-            title={`YouTube ${config.author}`}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <FaYoutube />
-          </a>
-        )}
-      </div>
-    </footer>
-  )
+      {config.github && (
+        <a
+          className={styles.github}
+          href={`https://github.com/${config.github}`}
+          title={`GitHub @${config.github}`}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <FaGithub />
+        </a>
+      )}
+
+      {config.linkedin && (
+        <a
+          className={styles.linkedin}
+          href={`https://www.linkedin.com/in/${config.linkedin}`}
+          title={`LinkedIn ${config.author}`}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <FaLinkedin />
+        </a>
+      )}
+
+      {config.newsletter && (
+        <a
+          className={styles.newsletter}
+          href={`${config.newsletter}`}
+          title={`Newsletter ${config.author}`}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <FaEnvelopeOpenText />
+        </a>
+      )}
+
+      {config.youtube && (
+        <a
+          className={styles.youtube}
+          href={`https://www.youtube.com/${config.youtube}`}
+          title={`YouTube ${config.author}`}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <FaYoutube />
+        </a>
+      )}
+    </div>
+  </footer>
+)
 }
 
 export const Footer = React.memo(FooterImpl)

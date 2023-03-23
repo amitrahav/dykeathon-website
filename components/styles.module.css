@@ -217,3 +217,7 @@
 .hidden {
   visibility: hidden;
 }
+.footer_logo {
+  max-width: "100%";
+  height: "auto";
+}
