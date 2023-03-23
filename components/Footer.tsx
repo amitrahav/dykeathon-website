@@ -12,7 +12,6 @@ import { IoSunnyOutline } from '@react-icons/all-files/io5/IoSunnyOutline'
 import { makeStyles } from "@material-ui/core/styles";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import Box from '@mui/material/Box';
 
 
 
@@ -20,7 +19,6 @@ import * as config from '@/lib/config'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
 import styles from './styles.module.css'
-import { Hidden } from '@material-ui/core'
 
 // TODO: merge the data and icons from PageSocial with the social links in Footer
 
