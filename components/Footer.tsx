@@ -9,7 +9,7 @@ import { FaYoutube } from '@react-icons/all-files/fa/FaYoutube'
 import { FaZhihu } from '@react-icons/all-files/fa/FaZhihu'
 import { IoMoonSharp } from '@react-icons/all-files/io5/IoMoonSharp'
 import { IoSunnyOutline } from '@react-icons/all-files/io5/IoSunnyOutline'
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles } from "@material-ui/core/styles";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
@@ -38,16 +38,16 @@ export const FooterImpl: React.FC = () => {
     setHasMounted(true)
   }, [])
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      backgroundColor: "#f2f2f2",
-      padding: theme.spacing(5, 0),
-    },
-    logo: {
-      maxWidth: "100%",
-      height: "auto",
-    },
-  }));
+  // const useStyles = makeStyles((theme) => ({
+  //   root: {
+  //     backgroundColor: "#f2f2f2",
+  //     padding: theme.spacing(5, 0),
+  //   },
+  //   logo: {
+  //     maxWidth: "100%",
+  //     height: "auto",
+  //   },
+  // }));
   
     
 const itemData = [

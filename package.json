@@ -6,7 +6,7 @@
   "author": "Amit Rahav <amit.r.89@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
     "dev": "next dev",
