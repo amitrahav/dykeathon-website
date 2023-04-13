@@ -228,6 +228,11 @@
   background-size: 0 0.1rem;
 }
 
+
+.notion-page-link {
+  display: none;
+}
+
 .notion-link:focus,
 .notion-link:hover {
   border-bottom-color: transparent;
