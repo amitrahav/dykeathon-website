@@ -22,7 +22,7 @@ export const PageHead: React.FC<
   const socialImageUrl = getSocialImageUrl(pageId) || image
   console.log(socialImageUrl)
 
-  const staticSocialImageUrl = new URL(`${process.env.NEXT_PUBLIC_DOMAIN}/social.jpeg`).toString()
+  const staticSocialImageUrl = new URL(`${config.host}/social.jpeg`).toString()
   console.log("URL: "+ staticSocialImageUrl)
  return (
     <Head>
