@@ -45,6 +45,7 @@ export default siteConfig({
   //
   pageUrlAdditions: {
     '/tech-person-registration': '01244a9c838849a3bd00b1e247d19ac8',
+    '/pm-idea-registration': 'f3e70f7166f34197adf65ed3a32334f4',
   },
   pageUrlOverrides: null,
 
