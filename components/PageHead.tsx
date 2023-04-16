@@ -5,6 +5,7 @@ import * as config from '@/lib/config'
 import * as types from '@/lib/types'
 import { getSocialImageUrl } from '@/lib/get-social-image-url'
 
+
 export const PageHead: React.FC<
   types.PageProps & {
     title?: string
@@ -20,7 +21,10 @@ export const PageHead: React.FC<
 
   const socialImageUrl = getSocialImageUrl(pageId) || image
   console.log(socialImageUrl)
-  return (
+
+  const staticSocialImageUrl = new URL(`${process.env.NEXT_PUBLIC_DOMAIN}/social.jpeg`).toString()
+  console.log("URL: "+ staticSocialImageUrl)
+ return (
     <Head>
       <meta charSet='utf-8' />
       <meta httpEquiv='Content-Type' content='text/html; charset=utf-8' />
@@ -54,8 +58,8 @@ export const PageHead: React.FC<
       { (
         <>
           <meta name='twitter:card' content='summary_large_image' />
-          <meta name='twitter:image' content={`${process.env.NEXT_PUBLIC_DOMAIN}/social.jpeg`} />
-          <meta property='og:image' content={`${process.env.NEXT_PUBLIC_DOMAIN}/social.jpeg`} />
+          <meta name='twitter:image' content={staticSocialImageUrl}/>
+          <meta property='og:image' content={staticSocialImageUrl}/>
        </> 
       ) 
         
