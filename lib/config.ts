@@ -150,8 +150,8 @@ export const api = {
   getSocialImage: `${apiBaseUrl}/social-image`,
   getParticipantsNum: `${apiBaseUrl}/participants`,
   registerParticipant: `${apiBaseUrl}/registerParticipant`,
-  getTeams: `${apiBaseUrl}/teams`,
-  getRandomQuestion: `${apiBaseUrl}/randomQuestion`
+  getRandomQuestion: `${apiBaseUrl}/randomQuestion`, 
+  validateRegistered: `${apiBaseUrl}/validate-registered`
 }
 
 // ----------------------------------------------------------------------------

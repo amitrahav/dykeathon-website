@@ -3,7 +3,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
 })
 
-module.exports = withBundleAnalyzer({
+const imgs = withBundleAnalyzer({
   staticPageGenerationTimeout: 300,
   images: {
     domains: [
@@ -21,3 +21,31 @@ module.exports = withBundleAnalyzer({
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
   }
 })
+
+const securedPages = ['/Teams-and-projects'].map(securedUrl => ({
+  source: securedUrl,
+  destination: '/signIn',
+  permanent: true,
+}))
+
+module.exports = {
+  async redirects() {
+    return [
+      {
+        source: '/tech-person-registration',
+        destination: '/main-registration',
+        permanent: true,
+      },{
+        source: '/hidden-links-page',
+        destination: '/',
+        permanent: true,
+      },{
+        source: '/product-ideas--main-db-must-be-under-dykeathon-website-page',
+        destination: '/',
+        permanent: true,
+      }, 
+      ...securedPages
+    ]
+  }, 
+  ...imgs
+}

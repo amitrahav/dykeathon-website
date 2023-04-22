@@ -54,6 +54,11 @@
   gap: 6vmin;
 }
 
+/* This is the hidden links page area */
+.notion-block-4981787fd45d4172979fb424e7dc8145 {
+  display: none;
+}
+
 .notion-gallery-grid .notion-page-icon-inline {
   display: none;
 }
@@ -229,9 +234,9 @@
 }
 
 
-.notion-page-link {
+/* .notion-page-link {
   display: none;
-}
+} */
 
 .notion-link:focus,
 .notion-link:hover {
@@ -380,13 +385,13 @@
   border-image-slice: 1;
 }
 
-.notion-block-ab9a258d6cf444f3bb40dc2600feae91 .notion-column {
+/* .notion-block-ab9a258d6cf444f3bb40dc2600feae91 .notion-column {
   padding: 0;
-}
+} */
 
-.notion-block-260baa77f1e1428b97fb14ac99c7c385 {
+/* .notion-block-260baa77f1e1428b97fb14ac99c7c385 {
   display: none;
-}
+} */
 
 hr {
   background:linear-gradient(180deg, #FE0000 16.66%,

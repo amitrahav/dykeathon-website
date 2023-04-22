@@ -26,6 +26,7 @@ export default function Participants(props) {
       {...props}
       style={{
         lineHeight: 'calc(100vh - 0.83em * 2)',
+        margin: 0,
         textAlign: 'center'
       }}
     >

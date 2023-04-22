@@ -240,3 +240,12 @@ input[type="button"],
 input[type="submit"] {
     -webkit-appearance: none;
 } */
+
+/* Teams and projects */
+.notion-collection-header {
+    display: none;
+}
+
+.notion-page-content-has-aside{
+    max-width: 100% !important;
+}

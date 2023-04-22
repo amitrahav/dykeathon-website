@@ -28,7 +28,7 @@ export default siteConfig({
   // page-specific values will override these site-wide defaults
   defaultPageIcon: null,
   defaultPageCoverPosition: 0.5,
-  defaultPageCover: `${process.env.NEXT_PUBLIC_DOMAIN}/dykeathon.png`,
+  // defaultPageCover: `${process.env.NEXT_PUBLIC_DOMAIN}/dykeathon.png`,
   // defaultPageCover: null,
 
   // whether or not to enable support for LQIP preview images (optional)
