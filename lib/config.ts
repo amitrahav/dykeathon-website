@@ -151,6 +151,7 @@ export const api = {
   getParticipantsNum: `${apiBaseUrl}/participants`,
   registerParticipant: `${apiBaseUrl}/registerParticipant`,
   getRandomQuestion: `${apiBaseUrl}/randomQuestion`, 
+  getTeams: `${apiBaseUrl}/teams`,
   validateRegistered: `${apiBaseUrl}/validate-registered`
 }
 
