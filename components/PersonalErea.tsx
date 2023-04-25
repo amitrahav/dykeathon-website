@@ -44,33 +44,24 @@ const PersonalErea = () => {
     }
     if(userData){
     const userName = userData["Name"]["title"][0]["plain_text"];
-    const arrivalResponse = userData["Arrival response"]["multi_select"].map(sel => sel.name)
-    // const teamMembers = userData["team members"]["rich_text"];
+    const arrivalResponse = (userData["Arrival response"]["multi_select"] || []).map(sel => sel?.name)
     const projects = userData["Voted"]["relation"];
-    // const formFields = {
-    //     arrivalResponse:{
-    //         type: "multi",
-    //         value: arrivalResponse
-    //     },
-    //     teamMembers: {
-    //         type: "texteare",
-    //         value: teamMembers
-    //     },
-    //     projects: {
-    //         type: "multi",
-    //         value: projects
-    //     }
-
-    // }
-
+    
     // You can find the form ID in the URL of this page
     // https://tally.so/forms/wQ1bLl/share
-    const formId = 'wQ1bLl';
-
+    const formIdProjects = 'wQ1bLl';
+    const formIdApproval = 'n9BkrY';
+    
+    
     // Open the popup
+    if(!arrivalResponse.length){
+         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        Tally.openPopup(formIdApproval);    
+    }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    Tally.openPopup(formId);
+    Tally.openPopup(formIdProjects);
     return (<>
         <div style={{background: "#fff", marginBottom: 10, padding: "10px 30px"}}>
             <p>
