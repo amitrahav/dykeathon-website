@@ -152,7 +152,8 @@ export const api = {
   registerParticipant: `${apiBaseUrl}/registerParticipant`,
   getRandomQuestion: `${apiBaseUrl}/randomQuestion`, 
   getTeams: `${apiBaseUrl}/teams`,
-  validateRegistered: `${apiBaseUrl}/validate-registered`
+  validateRegistered: `${apiBaseUrl}/validate-registered`,
+  userData: `${apiBaseUrl}/user-data`
 }
 
 // ----------------------------------------------------------------------------
@@ -163,7 +164,8 @@ export const site: Site = {
   rootNotionPageId,
   rootNotionSpaceId,
   description,
-  fontFamily: "Josefin Sans"
+  fontFamily: "Josefin Sans",
+  protectedPages: ['teams-and-projects']
 }
 
 export const fathomId = isDev ? null : process.env.NEXT_PUBLIC_FATHOM_ID

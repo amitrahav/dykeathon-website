@@ -37,6 +37,8 @@ export interface Site {
   // opengraph metadata
   description?: string
   image?: string
+
+  protectedPages?: string[]
 }
 
 export interface SiteMap {

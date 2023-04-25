@@ -22,12 +22,6 @@ const imgs = withBundleAnalyzer({
   }
 })
 
-const securedPages = ['/Teams-and-projects'].map(securedUrl => ({
-  source: securedUrl,
-  destination: '/signIn',
-  permanent: true,
-}))
-
 module.exports = {
   async redirects() {
     return [
@@ -39,12 +33,7 @@ module.exports = {
         source: '/hidden-links-page',
         destination: '/',
         permanent: true,
-      },{
-        source: '/product-ideas--main-db-must-be-under-dykeathon-website-page',
-        destination: '/',
-        permanent: true,
-      }, 
-      ...securedPages
+      }
     ]
   }, 
   ...imgs

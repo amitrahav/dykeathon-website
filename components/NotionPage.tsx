@@ -28,6 +28,10 @@ import { Page404 } from './Page404'
 import { PageAside } from './PageAside'
 import { PageHead } from './PageHead'
 import styles from './styles.module.css'
+import SignInBox from './SignInBox'
+import { useCookies } from 'react-cookie'
+import PersonalErea from './PersonalErea'
+import ProjectSelect from './useProjectSelect'
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
@@ -147,8 +151,9 @@ export const NotionPage: React.FC<types.PageProps> = ({
   site,
   recordMap,
   error,
-  pageId
+  pageId,
 }) => {
+  const [cookies] = useCookies(['dyke-registered']);
   const router = useRouter()
   const lite = useSearchParam('lite')
 
@@ -234,6 +239,34 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const socialDescription =
     getPageProperty<string>('Description', block, recordMap) ||
     config.description
+  
+  const isProtected = site.protectedPages.some(path=>router.asPath.toLowerCase().includes(path))
+  const isProtectedAndUnsigned = isProtected && !cookies['dyke-registered'];
+  const isProtectedAndSigned = isProtected && !!cookies['dyke-registered'];
+  
+  if (isProtectedAndUnsigned){
+    return(
+      <>
+        <CustomFont site={site} />
+        <PageHead
+          pageId={pageId}
+          site={site}
+          title={title}
+          description={socialDescription}
+          image={socialImage}
+          url={canonicalPageUrl}
+        />
+
+      {isLiteMode && <BodyClassName className='notion-lite unauthorize' />}
+      {isDarkMode && <BodyClassName className='dark-mode unauthorize' />}
+      
+      <SignInBox/>
+
+      </>
+    )
+  }
+  
+  const bodyClasses = `${isLiteMode && 'notion-lite'} ${isDarkMode && 'dark-mode'} ${isProtected && 'protected'}`;
 
   return (
     <>
@@ -247,33 +280,37 @@ export const NotionPage: React.FC<types.PageProps> = ({
         url={canonicalPageUrl}
       />
 
-      {isLiteMode && <BodyClassName className='notion-lite' />}
-      {isDarkMode && <BodyClassName className='dark-mode' />}
+      <BodyClassName className={bodyClasses} />
 
-      <NotionRenderer
-        bodyClassName={cs(
-          styles.notion,
-          pageId === site.rootNotionPageId && 'index-page'
-        )}
-        darkMode={isDarkMode}
-        components={components}
-        recordMap={recordMap}
-        rootPageId={site.rootNotionPageId}
-        rootDomain={site.domain}
-        fullPage={!isLiteMode}
-        previewImages={!!recordMap.preview_images}
-        showCollectionViewDropdown={false}
-        showTableOfContents={showTableOfContents}
-        minTableOfContentsItems={minTableOfContentsItems}
-        defaultPageIcon={config.defaultPageIcon}
-        defaultPageCover={config.defaultPageCover}
-        defaultPageCoverPosition={config.defaultPageCoverPosition}
-        mapPageUrl={siteMapPageUrl}
-        mapImageUrl={mapImageUrl}
-        searchNotion={config.isSearchEnabled ? searchNotion : null}
-        pageAside={pageAside}
-        footer={footer}
-      />
+      {isProtectedAndSigned && <PersonalErea />}
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* @ts-ignore */}
+      <ProjectSelect active={isProtectedAndSigned}>
+        <NotionRenderer
+          bodyClassName={cs(
+            styles.notion,
+            pageId === site.rootNotionPageId && 'index-page'
+          )}
+          darkMode={isDarkMode}
+          components={components}
+          recordMap={recordMap}
+          rootPageId={site.rootNotionPageId}
+          rootDomain={site.domain}
+          fullPage={!isLiteMode}
+          previewImages={!!recordMap.preview_images}
+          showCollectionViewDropdown={false}
+          showTableOfContents={showTableOfContents}
+          minTableOfContentsItems={minTableOfContentsItems}
+          defaultPageIcon={config.defaultPageIcon}
+          defaultPageCover={config.defaultPageCover}
+          defaultPageCoverPosition={config.defaultPageCoverPosition}
+          mapPageUrl={siteMapPageUrl}
+          mapImageUrl={mapImageUrl}
+          searchNotion={config.isSearchEnabled ? searchNotion : null}
+          pageAside={pageAside}
+          footer={footer}
+        />
+      </ProjectSelect>
 
       {/* <GitHubShareButton /> */}
     </>

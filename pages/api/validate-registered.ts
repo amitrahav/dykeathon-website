@@ -36,10 +36,10 @@ export default async (
   }
     const userMail: string = req.query.email as string;
     if (!userMail) {
-        return res.status(422).send({ error: 'no mail provided' })
+        return res.status(422).send({ error: 'no email provided' })
     }
 
     const notionRes = await queryDb(userMail)
 
-    res.status(200).json({ registered: notionRes.length > 0 })
+    res.status(200).json({ registered: notionRes.length > 0 ? notionRes[0].id: ''})
 }
