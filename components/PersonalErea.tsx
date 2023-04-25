@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useCookies } from 'react-cookie'
 import { api } from '../lib/config';
-import _ from "loadsh"
 
 const PersonalErea = () => {
     const [cookies] = useCookies(['dyke-registered']);
@@ -46,7 +45,7 @@ const PersonalErea = () => {
     if(userData){
     const userName = userData["Name"]["title"][0]["plain_text"];
     const arrivalResponse = userData["Arrival response"]["multi_select"].map(sel => sel.name)
-    const teamMembers = userData["team members"]["rich_text"];
+    // const teamMembers = userData["team members"]["rich_text"];
     const projects = userData["Voted"]["relation"];
     // const formFields = {
     //     arrivalResponse:{
