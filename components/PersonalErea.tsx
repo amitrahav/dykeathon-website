@@ -74,10 +74,6 @@ const PersonalErea = () => {
             <br/>
             <p>Your selected projects: {projects}</p>
         </div>
-        
-        <div className='side-iframe'>
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdWmZ1QfI3hho8af8_9Bmq8Se8EJWi30RQjo6pqKAS_1m6Ajw/viewform?embedded=true" width="100%" height="auto" >Loading form</iframe>
-        </div>
     </>)
     }
 }
