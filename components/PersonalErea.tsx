@@ -48,6 +48,7 @@ const PersonalErea = () => {
     const userName = userData["Name"]["title"][0]["plain_text"];
     const arrivalResponse = (userData["Arrival response"]["multi_select"] || []).map(sel => sel?.name)
     const projects = userData["Voted"]["relation"];
+    const userEmail = userData["Email"]["email"];
     
     // You can find the form ID in the URL of this page
     // https://tally.so/forms/wQ1bLl/share
@@ -60,14 +61,15 @@ const PersonalErea = () => {
             if(!popups.length){
                 document.body.classList.remove('space-for-tally')            
             }
-            
-        }
+        },
     }
     
     if(!projects.length){
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        Tally.openPopup(formIdProjects,tallyOptions );
+        Tally.openPopup(formIdProjects, {...tallyOptions, hiddenFields: {
+         "self_email": userEmail
+        }} );
         document.body.classList.add('space-for-tally')
     }
 
