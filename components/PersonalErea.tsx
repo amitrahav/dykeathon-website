@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { useCookies } from 'react-cookie'
 import { api } from '../lib/config';
+import SignInBox from './SignInBox';
+import { Loading } from './Loading';
 
 const PersonalErea = () => {
     const [cookies] = useCookies(['dyke-registered']);
@@ -40,7 +42,7 @@ const PersonalErea = () => {
     }
 
     if(loading) {
-        return <p> {loading} </p>
+        return <Loading />
     }
     if(userData){
     const userName = userData["Name"]["title"][0]["plain_text"];
@@ -53,15 +55,16 @@ const PersonalErea = () => {
     const formIdApproval = 'n9BkrY';
     
     
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    Tally.openPopup(formIdProjects);
+
     // Open the popup
     if(!arrivalResponse.length){
          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         Tally.openPopup(formIdApproval);    
     }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    Tally.openPopup(formIdProjects);
     return (<>
         <div style={{background: "#fff", marginBottom: 10, padding: "10px 30px"}}>
             <p>
@@ -73,6 +76,7 @@ const PersonalErea = () => {
             <b>Choose any of the projects below that you want to join, we will try our best to assign you on one of those projects (Pls choose more than 1)</b>
             <br/>
             <p>Your selected projects: {projects}</p>
+            <SignInBox />
         </div>
     </>)
     }
