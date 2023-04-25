@@ -35,6 +35,7 @@ export const PageHead: React.FC<
 
       <meta name='robots' content='index,follow' />
       <meta property='og:type' content='website' />
+      <script async src="https://tally.so/widgets/embed.js"></script>
 
       {site && (
         <>

@@ -62,23 +62,33 @@ const PersonalErea = () => {
     //     }
 
     // }
-    return (
-    <div style={{background: "#fff", marginBottom: 10, padding: "10px 30px"}}>
-        <p>
-            Hello {userName}! <br/>
-            This is your perssonal erea (: <br/>
-            Your Arrival response: {arrivalResponse}
-        </p>
 
-        <b>Choose any of the projects below that you want to join, we will try our best to assign you on one of those projects (Pls choose more than 1)</b>
-        <br/>
-        <p>Your selected projects: {projects}</p>
+    // You can find the form ID in the URL of this page
+    // https://tally.so/forms/wQ1bLl/share
+    const formId = 'wQ1bLl';
 
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdWmZ1QfI3hho8af8_9Bmq8Se8EJWi30RQjo6pqKAS_1m6Ajw/viewform?embedded=true" width="100%" height="auto" >Loading form</iframe>
+    // Open the popup
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    Tally.openPopup(formId);
+    return (<>
+        <div style={{background: "#fff", marginBottom: 10, padding: "10px 30px"}}>
+            <p>
+                Hello {userName}! <br/>
+                This is your perssonal erea (: <br/>
+                Your Arrival response: {arrivalResponse}
+            </p>
+
+            <b>Choose any of the projects below that you want to join, we will try our best to assign you on one of those projects (Pls choose more than 1)</b>
+            <br/>
+            <p>Your selected projects: {projects}</p>
+        </div>
         
-    </div>)
+        <div className='side-iframe'>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdWmZ1QfI3hho8af8_9Bmq8Se8EJWi30RQjo6pqKAS_1m6Ajw/viewform?embedded=true" width="100%" height="auto" >Loading form</iframe>
+        </div>
+    </>)
     }
-
 }
 
 export default PersonalErea;
