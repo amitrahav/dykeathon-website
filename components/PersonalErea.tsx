@@ -54,17 +54,31 @@ const PersonalErea = () => {
     const formIdProjects = 'wQ1bLl';
     const formIdApproval = 'n9BkrY';
     
+    const tallyOptions = {
+        onClose: () =>{
+            const popups = document.body.getElementsByClassName('tally-popup');
+            if(!popups.length){
+                document.body.classList.remove('space-for-tally')            
+            }
+            
+        }
+    }
     
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    Tally.openPopup(formIdProjects);
+    if(!projects.length){
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        Tally.openPopup(formIdProjects,tallyOptions );
+        document.body.classList.add('space-for-tally')
+    }
 
     // Open the popup
     if(!arrivalResponse.length){
          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        Tally.openPopup(formIdApproval);    
+        Tally.openPopup(formIdApproval, tallyOptions);    
+        document.body.classList.add('space-for-tally')
     }
+
     return (<>
         <div style={{background: "#fff", marginBottom: 10, padding: "10px 30px"}}>
             <p>
