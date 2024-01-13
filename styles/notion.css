@@ -54,6 +54,10 @@
   gap: 6vmin;
 }
 
+.notion-gallery-grid.notion-gallery-grid-size-small {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 0.5fr))
+}
+
 .notion-gallery-grid label{
   height: max-content;
 }
@@ -88,6 +92,7 @@
 
 .notion-collection-card-cover img {
   border-radius: 16px;
+  object-fit: cover!important;
 }
 
 .notion-collection-card {

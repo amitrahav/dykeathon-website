@@ -58,20 +58,9 @@ export const FooterImpl: React.FC = () => {
               target='_blank'
               rel='noopener noreferrer'
             >
-              <img src="https://lgbtqcenter.org.il/wp-content/uploads/2019/08/lgbt_GayCenter-Logo.svg" style={{
+              <img src={`${config.host}/lgbt-center-logo.png`} style={{
                     maxHeight: "50px",
                     width: "100%",
-                    height: "auto"
-              }}/>
-            </a>
-
-            <a
-              href='https://www.tel-aviv.gov.il/'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <img src="https://www.tel-aviv.gov.il/_layouts/15/TlvSP2013PublicSite/images/header/logo-mobile.png" style={{
-                    maxHeight: "50px",
                     height: "auto"
               }}/>
             </a>

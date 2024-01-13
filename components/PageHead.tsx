@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 import * as config from '@/lib/config'
 import * as types from '@/lib/types'
-import { getSocialImageUrl } from '@/lib/get-social-image-url'
+// import { getSocialImageUrl } from '@/lib/get-social-image-url'
 
 
 export const PageHead: React.FC<
@@ -13,17 +13,16 @@ export const PageHead: React.FC<
     image?: string
     url?: string
   }
-> = ({ site, title, description, pageId, image, url }) => {
+// > = ({ site, title, description, pageId, image, url }) => {
+  > = ({ site, title, description, url }) => {
   const rssFeedUrl = `${config.host}/feed`
 
   title = title ?? site?.name
   description = description ?? site?.description
 
-  const socialImageUrl = getSocialImageUrl(pageId) || image
-  console.log(socialImageUrl)
-
+  // const socialImageUrl = getSocialImageUrl(pageId) || image
   const staticSocialImageUrl = new URL(`${config.host}/social.jpeg`).toString()
-  console.log("URL: "+ staticSocialImageUrl)
+
  return (
     <Head>
       <meta charSet='utf-8' />

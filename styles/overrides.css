@@ -2,7 +2,7 @@
     --purple: #761fff;
     --blue: #00ffff;
     --white: #ffffff;
-    --fg-color: var(--purple);
+    --fg-color: black;
 }
 
 .dark-mode:root{
@@ -11,7 +11,7 @@
 
 body{
     background-color: var(--purple);
-    font-family: "Josefin Sans", -apple-system, BlinkMacSystemFont,
+    font-family: "Inter", -apple-system, BlinkMacSystemFont,
     'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
     'Segoe UI Emoji', 'Segoe UI Symbol';
     font-weight: 400;
@@ -19,7 +19,7 @@ body{
 }
 
 .notion-h1, .notion-h2, .notion-h3 {
-    text-align: center;
+    /* text-align: center; */
     width: 100%;
     margin: 0;
 }
@@ -69,11 +69,11 @@ body{
 .notion-page-cover-wrapper span, 
 .notion-page-cover-wrapper img {
     height: 100%!important;
-    object-position: center 100%!important;
+    /* object-position: center 100%!important; */
 }
 
 .notion-hr{
-    border-color: var(--blue);
+    border: 0;
 }
 
 .notion-page-icon-wrapper {
@@ -105,6 +105,10 @@ figure.notion-asset-wrapper-drive {
     margin: 0!important;
     padding: 0 20px;
 
+}
+
+.notion-asset-wrapper > div {
+    height: max-content !important;
 }
 
 /* figure.notion-asset-wrapper-drive > div {

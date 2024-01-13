@@ -164,7 +164,7 @@ export const site: Site = {
   rootNotionPageId,
   rootNotionSpaceId,
   description,
-  fontFamily: "Josefin Sans",
+  fontFamily: "Inter",
   protectedPages: ['teams-and-projects']
 }
 

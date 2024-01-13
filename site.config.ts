@@ -57,6 +57,15 @@ export default siteConfig({
     {
       title: '2022',
       pageId: '0fab356c3de7444f98706bc98314e560'
+    },{
+      title: '2023',
+      pageId: '4a9f5794697440129252f34ade6a0d82'
+    }, {
+      title: 'Hanukka 2023 meetaup',
+      pageId: '3501956e4d3740a5a802a612f74e712c'
+    }, {
+      title: 'Press',
+      pageId: '0755748c892e401d969a5f6de764a2be'
     }
   ]
 })
