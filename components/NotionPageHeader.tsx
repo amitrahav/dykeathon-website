@@ -50,11 +50,11 @@ export const NotionPageHeader: React.FC<{
           <ToggleThemeButton />
 
           <components.PageLink
-              href={'/'}
+              href={config.host}
               className={cs(styles.navLink, 'breadcrumb', 'button')}
             >
-            <img src="/favicon-32X32.png" /> 
-            <p style={{marginLeft: 10}}>Dykeathon</p>
+            <img src={`${config.host}/favicon-32X32.png`} /> 
+            <p style={{marginLeft: 10}}>{config.name}</p>
           </components.PageLink>
         </div>
 
