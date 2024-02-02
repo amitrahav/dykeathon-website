@@ -107,7 +107,7 @@ figure.notion-asset-wrapper-drive {
 
 }
 
-.notion-asset-wrapper > div {
+.notion-asset-wrapper-image > div {
     height: max-content !important;
 }
 
