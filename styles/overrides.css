@@ -1,8 +1,8 @@
 :root {
-    --purple: #761fff;
+    --purple: #8d6be4;
     --blue: #00ffff;
-    --white: #ffffff;
-    --fg-color: black;
+    --white: #f5f5f5;
+    --fg-color: #383838;
 }
 
 .dark-mode:root{
