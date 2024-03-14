@@ -85,6 +85,7 @@ body{
 .notion-page-icon-hero.notion-page-icon-image {
     width: 350px;
     margin-left: -175px;
+    height: auto;
 }
 
 /* .notion-page-icon-wrapper img.notion-page-icon{
