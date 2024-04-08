@@ -44,8 +44,7 @@ export default siteConfig({
   // example:
   //
   pageUrlAdditions: {
-    '/tech-person-registration': '01244a9c838849a3bd00b1e247d19ac8',
-    '/pm-idea-registration': 'f3e70f7166f34197adf65ed3a32334f4',
+    '/projects': '2024-Projects-7135810517474cf4a3bd0a50d4821b6d',
   },
   pageUrlOverrides: null,
 
