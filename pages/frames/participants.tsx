@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { api } from '../../lib/config'
+// import { api } from '../../lib/config'
 
 export default function Participants(props) {
   const [data, setData] = useState(null)
@@ -8,17 +8,18 @@ export default function Participants(props) {
   useEffect(() => {
     if (isLoading || !!data) return
     setLoading(true)
-    fetch(api.getParticipantsNum, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json'
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data.num)
-        setLoading(false)
-      })
+    setData(3)
+    // fetch(api.getParticipantsNum, {
+    //   method: 'GET',
+    //   headers: {
+    //     'content-type': 'application/json'
+    //   }
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     setData(data.num)
+    //     setLoading(false)
+    //   })
   }, [isLoading, data])
 
   return (

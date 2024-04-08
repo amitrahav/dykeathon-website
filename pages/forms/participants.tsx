@@ -7,7 +7,7 @@ import { Formiz, useForm } from '@formiz/core'
 // import SelectField from '../../components/forms/selectField'
 
 import React, { useEffect } from 'react'
-import { api } from 'lib/config'
+// import { api } from 'lib/config'
 
 export default function ParticipantsPreRegister() {
   const myForm = useForm()
@@ -41,30 +41,30 @@ export default function ParticipantsPreRegister() {
       return
     }
 
-    await fetch(api.registerParticipant, {
-      body: data,
-      method: 'POST',
-      headers: {
-        Accept: 'application/json'
-      }
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json()
-        } else {
-          throw new Error(res.statusText)
-        }
-      })
-      .then((data) => {
-        setIsDone(true)
-        console.log({ data })
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
+    // await fetch(api.registerParticipant, {
+    //   body: data,
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json'
+    //   }
+    // })
+    //   .then((res) => {
+    //     if (res.ok) {
+    //       return res.json()
+    //     } else {
+    //       throw new Error(res.statusText)
+    //     }
+    //   })
+    //   .then((data) => {
+    //     setIsDone(true)
+    //     console.log({ data })
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
+    //   .finally(() => {
+    //     setIsLoading(false)
+    //   })
   }
 
   // const validateFileSize = (file: Blob): boolean => {
