@@ -43,7 +43,7 @@ const ProjectSelect = ({children, active = false}): React.FC<{active:boolean}> =
         return document.getElementsByClassName('notion-gallery-grid')[0]
     }
     React.useEffect( ()=> {
-        if(!!window && !!document && active && !ready){
+        if(!!window && !!document && !ready){
             const gallery = findGallery();
             if(!gallery){
                 const blaIntervalId = setInterval(() => {
@@ -57,10 +57,10 @@ const ProjectSelect = ({children, active = false}): React.FC<{active:boolean}> =
                 setReady(true);
             }
         }
-    }, [children, active, ready]);
+    }, [children, ready]);
 
     React.useEffect(()=>{
-        if(ready){
+        if(ready && active){
             const gallery = findGallery()
             if (gallery.hasChildNodes()) {
                 const items = gallery?.childNodes;
@@ -117,10 +117,18 @@ const ProjectSelect = ({children, active = false}): React.FC<{active:boolean}> =
             }
 
         }
-    }, [ready])
-    if(!active){
-        return children;
-    }
+        if (ready && !active) {
+            const gallery = findGallery()
+            if (gallery.hasChildNodes()) {
+
+                const items = gallery?.childNodes;
+                items.forEach((single: HTMLElement) => {
+                    console.log({single})
+                    single.removeAttribute('href');
+                });
+            }
+        }
+    }, [ready, active])
 
 
     return children

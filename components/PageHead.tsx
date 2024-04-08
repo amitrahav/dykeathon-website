@@ -3,6 +3,7 @@ import Head from 'next/head'
 
 import * as config from '@/lib/config'
 import * as types from '@/lib/types'
+import { CustomFont } from './CustomFont'
 // import { getSocialImageUrl } from '@/lib/get-social-image-url'
 
 
@@ -83,6 +84,8 @@ export const PageHead: React.FC<
       <meta property='og:title' content={title} />
       <meta name='twitter:title' content={title} />
       <title>{title}</title>
+      <CustomFont site={site} />
+
     </Head>
   )
 }
