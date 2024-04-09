@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-// import { api } from '../../lib/config'
+import { api } from '../../lib/config'
 import Image from 'next/image'
 
 export default function Participants(props) {
@@ -9,18 +9,17 @@ export default function Participants(props) {
   useEffect(() => {
     if (isLoading || !!data) return
     setLoading(true)
-    setData([]);
-    // fetch(api.getTeams, {
-    //   method: 'GET',
-    //   headers: {
-    //     'content-type': 'application/json'
-    //   }
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setData(data)
-    //     setLoading(false)
-    //   })
+    fetch(api.getTeams, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data)
+        setLoading(false)
+      })
   }, [isLoading, data])
 
   return (

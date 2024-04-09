@@ -148,12 +148,12 @@ export const api = {
   searchNotion: `${apiBaseUrl}/search-notion`,
   getNotionPageInfo: `${apiBaseUrl}/notion-page-info`,
   getSocialImage: `${apiBaseUrl}/social-image`,
-  // getParticipantsNum: `${apiBaseUrl}/participants`,
-  // registerParticipant: `${apiBaseUrl}/registerParticipant`,
+  getParticipantsNum: `${apiBaseUrl}/participants`,
+  registerParticipant: `${apiBaseUrl}/registerParticipant`,
   getRandomQuestion: `${apiBaseUrl}/randomQuestion`, 
-  // getTeams: `${apiBaseUrl}/teams`,
-  // validateRegistered: `${apiBaseUrl}/validate-registered`,
-  // userData: `${apiBaseUrl}/user-data`
+  getTeams: `${apiBaseUrl}/teams`,
+  validateRegistered: `${apiBaseUrl}/validate-registered`,
+  userData: `${apiBaseUrl}/user-data`
 }
 
 // ----------------------------------------------------------------------------
@@ -165,7 +165,7 @@ export const site: Site = {
   rootNotionSpaceId,
   description,
   fontFamily: "Poppins",
-  protectedPages: []
+  protectedPages: ['teams-and-projects']
 }
 
 export const fathomId = isDev ? null : process.env.NEXT_PUBLIC_FATHOM_ID

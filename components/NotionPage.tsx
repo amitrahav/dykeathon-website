@@ -20,6 +20,7 @@ import { searchNotion } from '@/lib/search-notion'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
 import { Footer } from './Footer'
+import { CustomFont } from './CustomFont'
 // import { GitHubShareButton } from './GitHubShareButton'
 import { Loading } from './Loading'
 import { NotionPageHeader } from './NotionPageHeader'
@@ -27,9 +28,9 @@ import { Page404 } from './Page404'
 import { PageAside } from './PageAside'
 import { PageHead } from './PageHead'
 import styles from './styles.module.css'
-// import SignInBox from './SignInBox.tsx.deprecated'
-// import { useCookies } from 'react-cookie'
-// import PersonalErea from './PersonalErea-tsx.deprecated'
+import SignInBox from './SignInBox'
+import { useCookies } from 'react-cookie'
+import PersonalErea from './PersonalErea'
 import ProjectSelect from './useProjectSelect'
 
 // -----------------------------------------------------------------------------
@@ -152,7 +153,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
   error,
   pageId,
 }) => {
-  // const [cookies] = useCookies(['dyke-registered']);
+  const [cookies] = useCookies(['dyke-registered']);
   const router = useRouter()
   const lite = useSearchParam('lite')
 
@@ -239,36 +240,37 @@ export const NotionPage: React.FC<types.PageProps> = ({
     getPageProperty<string>('Description', block, recordMap) ||
     config.description
   
-  // const isProtected = site.protectedPages.some(path=>router.asPath.toLowerCase().includes(path))
-  // const isProtectedAndUnsigned = isProtected && !cookies['dyke-registered'];
-  // const isProtectedAndSigned = isProtected && !!cookies['dyke-registered'];
+  const isProtected = site.protectedPages.some(path=>router.asPath.toLowerCase().includes(path))
+  const isProtectedAndUnsigned = isProtected && !cookies['dyke-registered'];
+  const isProtectedAndSigned = isProtected && !!cookies['dyke-registered'];
   
-  // if (isProtectedAndUnsigned){
-  //   return(
-  //     <>
-  //       <PageHead
-  //         pageId={pageId}
-  //         site={site}
-  //         title={title}
-  //         description={socialDescription}
-  //         image={socialImage}
-  //         url={canonicalPageUrl}
-  //       />
+  if (isProtectedAndUnsigned){
+    return(
+      <>
+        <CustomFont site={site} />
+        <PageHead
+          pageId={pageId}
+          site={site}
+          title={title}
+          description={socialDescription}
+          image={socialImage}
+          url={canonicalPageUrl}
+        />
 
-  //     {isLiteMode && <BodyClassName className='notion-lite unauthorize' />}
-  //     {isDarkMode && <BodyClassName className='dark-mode unauthorize' />}
+      {isLiteMode && <BodyClassName className='notion-lite unauthorize' />}
+      {isDarkMode && <BodyClassName className='dark-mode unauthorize' />}
       
-  //     {/* <SignInBox/> */}
+      <SignInBox/>
 
-  //     </>
-  //   )
-  // }
+      </>
+    )
+  }
   
-  // const bodyClasses = `${isLiteMode && 'notion-lite'} ${isDarkMode && 'dark-mode'} ${isProtected && 'protected'}`;
-  const bodyClasses = `${isLiteMode && 'notion-lite'} ${isDarkMode && 'dark-mode'}`;
+  const bodyClasses = `${isLiteMode && 'notion-lite'} ${isDarkMode && 'dark-mode'} ${isProtected && 'protected'}`;
 
   return (
     <>
+      <CustomFont site={site} />
       <PageHead
         pageId={pageId}
         site={site}
@@ -280,10 +282,10 @@ export const NotionPage: React.FC<types.PageProps> = ({
 
       <BodyClassName className={bodyClasses} />
 
-      {/* {isProtectedAndSigned && <PersonalErea />} */}
+      {isProtectedAndSigned && <PersonalErea />}
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/* @ts-ignore */}
-      <ProjectSelect active={false}>
+      <ProjectSelect active={isProtectedAndSigned}>
         <NotionRenderer
           bodyClassName={cs(
             styles.notion,
