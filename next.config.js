@@ -7,7 +7,7 @@ const imgs = withBundleAnalyzer({
   staticPageGenerationTimeout: 300,
   images: {
     domains: [
-      process.env.NEXT_PUBLIC_DOMAIN,
+      process.env.NEXT_PUBLIC_DOMAIN || "",
       'www.notion.so',
       'notion.so',
       'images.unsplash.com',
