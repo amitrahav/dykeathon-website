@@ -29,8 +29,7 @@ module.exports = {
         source: '/3f28084663cc46a9a912104ac657942f',
         destination: '/',
         permanent: true,
-      },
-      {
+      },{
         source: '/tech-person-registration',
         destination: '/main-registration',
         permanent: true,

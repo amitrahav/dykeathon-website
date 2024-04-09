@@ -43,7 +43,7 @@ export default async function OGImage(req: NextRequest) {
           backgroundColor: '#1F2027',
           alignItems: 'center',
           justifyContent: 'center',
-          fontFamily: '"Inter", sans-serif',
+          fontFamily: '"Poppins"',
           color: 'black'
         }}
       >
@@ -105,7 +105,7 @@ export default async function OGImage(req: NextRequest) {
               style={{
                 fontSize: 70,
                 fontWeight: 700,
-                fontFamily: 'Inter'
+                fontFamily: '"Poppins"'
               }}
             >
               {pageInfo.title}
