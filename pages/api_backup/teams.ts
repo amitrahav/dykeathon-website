@@ -9,11 +9,17 @@ export default async (
   if (req.method !== 'GET') {
     return res.status(405).send({ error: 'method not allowed' })
   }
+  if(!process.env.NOTION_API_KEY){
+    return res.status(500).send({ error: 'NOTION_API_KEY is not set' })
+  }
   const notion = new Client({
     auth: process.env.NOTION_API_KEY
   })
 
   const databaseId = process.env.NOTION_TEAMS_DB
+  if(!databaseId){
+    return res.status(500).send({ error: 'NOTION_TEAMS_DB is not set' })
+  }
   const response = await notion.databases.query({
     database_id: databaseId
   })

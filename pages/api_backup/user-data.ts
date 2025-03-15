@@ -6,6 +6,9 @@ const notion = new Client({
 })
 
 const queryDb = async (id: string) => {
+  if(!process.env.NOTION_API_KEY){
+    return res.status(500).send({ error: 'NOTION_API_KEY is not set' })
+  }
   const response = await notion.pages.retrieve({
     page_id: id
   })

@@ -7,8 +7,11 @@ const notion = new Client({
 
 const queryDb = async(cursor?: string) => {
   const dbId = process.env.NOTION_PARTICIPANTS_DB
+  if(!dbId){
+    return []
+  }
   const response = await notion.databases.query({
-    database_id: dbId, 
+    database_id: dbId,
     start_cursor: cursor
   })
   const participants = [...response.results]
@@ -17,7 +20,7 @@ const queryDb = async(cursor?: string) => {
     const more = await queryDb(response.next_cursor)
     participants.push(...more)
   }
-  
+
   return participants;
 }
 

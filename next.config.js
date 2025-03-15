@@ -34,11 +34,11 @@ module.exports = {
         destination: '/main-registration',
         permanent: true,
       },{
-        source: '/hidden-links-page',
+        source: '/hidden-links-page-1b3949a289bd8085851cd085e459b7b5',
         destination: '/',
         permanent: true,
       }
     ]
-  }, 
+  },
   ...imgs
 }

@@ -53,7 +53,7 @@ export const NotionPageHeader: React.FC<{
               href={config.host}
               className={cs(styles.navLink, 'breadcrumb', 'button')}
             >
-            <img src={`${config.host}/favicon-32x32.png`} /> 
+            <img src={`${config.host}/favicon-32x32.png`} />
             <p style={{marginLeft: 10}}>{config.name}</p>
           </components.PageLink>
         </div>

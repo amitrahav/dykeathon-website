@@ -67,7 +67,7 @@
 }
 
 /* This is the hidden links page area */
-.notion-block-4981787fd45d4172979fb424e7dc8145 {
+.notion-block-1b3949a289bd8085851cd085e459b7b5 {
   display: none;
 }
 
@@ -223,7 +223,7 @@
   }
 }
 
-.notion-block-ab9a258d6cf444f3bb40dc2600feae91 .notion-page-link {
+.notion-block-1b3949a289bd8085851cd085e459b7b5 .notion-page-link {
   justify-content: center;
   padding: 2em;
 }
@@ -397,14 +397,6 @@
   border-image: linear-gradient(90.68deg, #b439df 0.26%, #e5337e 102.37%);
   border-image-slice: 1;
 }
-
-/* .notion-block-ab9a258d6cf444f3bb40dc2600feae91 .notion-column {
-  padding: 0;
-} */
-
-/* .notion-block-260baa77f1e1428b97fb14ac99c7c385 {
-  display: none;
-} */
 
 hr {
   background:linear-gradient(180deg, #8d6be4 16.66%,

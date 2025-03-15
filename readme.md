@@ -104,7 +104,7 @@ All CSS styles that customize Notion content are located in [styles/notion.css](
 Every notion block gets its own unique classname, so you can target individual blocks like this:
 
 ```css
-.notion-block-260baa77f1e1428b97fb14ac99c7c385 {
+.notion-block-1b3949a289bd8085851cd085e459b7b5 {
   display: none;
 }
 ```
