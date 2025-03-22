@@ -1,8 +1,8 @@
 {
-  "name": "Dykeathon-website",
+  "name": "dykeathon-website",
   "version": "2.0.0",
   "private": false,
-  "description": "The dykeathon project",
+  "description": "The Dykeathon project",
   "author": "Amit Rahav <amit.r.89@gmail.com>",
   "license": "MIT",
   "engines": {

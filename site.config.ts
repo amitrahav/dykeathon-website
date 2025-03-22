@@ -37,14 +37,14 @@ export default siteConfig({
   // whether or not redis is enabled for caching generated preview images (optional)
   // NOTE: if you enable redis, you need to set the `REDIS_HOST` and `REDIS_PASSWORD`
   // environment variables. see the readme for more info
-  isRedisEnabled: true,
+  isRedisEnabled: false,
   isSearchEnabled: false,
   // map of notion page IDs to URL paths (optional)
   // any pages defined here will override their default URL paths
   // example:
   //
   pageUrlAdditions: {
-    '/projects': '2024-Projects-7135810517474cf4a3bd0a50d4821b6d',
+    '/projects': '2024-Projects-7135810517474cf4a3bd0a50d4821b6d'
   },
   pageUrlOverrides: null,
 
@@ -56,13 +56,16 @@ export default siteConfig({
     {
       title: '2022',
       pageId: '1b3949a289bd81b89b4ec8498e63dc5d'
-    },{
+    },
+    {
       title: '2023',
       pageId: '1b3949a289bd81e6a9a0ff6a670ec9cf'
-    }, {
+    },
+    {
       title: 'Hanukka 2023 meetaup',
       pageId: '1b3949a289bd8162ac16e27a7c098a2d'
-    }, {
+    },
+    {
       title: 'Press',
       pageId: '1b3949a289bd81cf8030f110d357c6c1'
     }

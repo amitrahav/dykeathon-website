@@ -34,8 +34,16 @@ body{
     margin-top: 60px;
 }
 
+
+.index-page .notion-page-icon-hero.notion-page-icon-image{
+    position: absolute;
+    left: 20px;
+    margin-left: 0;
+    display: none;
+}
+
 .index-page .notion-page-icon-hero.notion-page-icon-image,
-.index-page .notion-page-icon-hero.notion-page-icon-image span, 
+.index-page .notion-page-icon-hero.notion-page-icon-image span,
 .index-page .notion-page-icon-hero.notion-page-icon-image img {
     border-radius: 0;
     box-shadow: none;
@@ -49,7 +57,7 @@ body{
 .notion-header .breadcrumb .icon {
     top: -3px;
     background-color: var(--purple);
-    height: 20px!important; 
+    height: 20px!important;
     width: 20px!important;
     border-radius: 50px;
 }
@@ -59,14 +67,14 @@ body{
     height: auto!important;
 }
 
-.notion-page-cover-wrapper, 
-.notion-page-cover-wrapper span, 
+.notion-page-cover-wrapper,
+.notion-page-cover-wrapper span,
 .notion-page-cover-wrapper img{
     min-height: 250px!important;
 }
 
-.notion-page-cover-wrapper, 
-.notion-page-cover-wrapper span, 
+.notion-page-cover-wrapper,
+.notion-page-cover-wrapper span,
 .notion-page-cover-wrapper img {
     height: 100%!important;
     /* object-position: center 100%!important; */
@@ -137,7 +145,7 @@ form label, form input, form select, form textarea{
 form select{
     width: 100%;
 }
-  
+
 form p {
     background-color: var(--blue);
     text-align: center;
@@ -149,7 +157,7 @@ textarea{
     height: 60px;
     padding:5px;
 }
-  
+
 form p.error::before {
     display: inline;
     content: "⚠ ";
@@ -171,7 +179,7 @@ form p.error::before {
 .demo-form__footer > *{
     flex: 1;
 }
-  
+
 input {
     display: block;
     box-sizing: border-box;

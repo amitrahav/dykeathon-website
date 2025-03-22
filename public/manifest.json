@@ -1,6 +1,6 @@
 {
-  "name": "Dyke'athon 2022",
-  "short_name": "Dyke'athon",
+  "name": "Dykeathon",
+  "short_name": "Dykeathon",
   "icons": [
     {
       "src": "/favicon-16x16.png",
@@ -16,21 +16,6 @@
       "src": "/favicon-96x96.png",
       "type": "image/png",
       "sizes": "96x96"
-    },
-    {
-      "src": "/apple-touch-icon.png",
-      "type": "image/png",
-      "sizes": "180x180"
-    },
-    {
-      "src": "/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
     }
   ],
   "theme_color": "#8d6be4",

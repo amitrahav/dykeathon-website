@@ -1,16 +1,13 @@
-import * as React from 'react'
-
-import * as types from 'notion-types'
+import styles from './styles.module.css'
+import * as config from '@/lib/config'
+import { isSearchEnabled, navigationLinks, navigationStyle } from '@/lib/config'
+import { useDarkMode } from '@/lib/use-dark-mode'
 import { IoMoonSharp } from '@react-icons/all-files/io5/IoMoonSharp'
 import { IoSunnyOutline } from '@react-icons/all-files/io5/IoSunnyOutline'
 import cs from 'classnames'
+import * as types from 'notion-types'
+import * as React from 'react'
 import { Header, Search, useNotionContext } from 'react-notion-x'
-import * as config from '@/lib/config'
-
-import { isSearchEnabled, navigationLinks, navigationStyle } from '@/lib/config'
-import { useDarkMode } from '@/lib/use-dark-mode'
-
-import styles from './styles.module.css'
 
 const ToggleThemeButton = () => {
   const [hasMounted, setHasMounted] = React.useState(false)
@@ -46,15 +43,15 @@ export const NotionPageHeader: React.FC<{
   return (
     <header className='notion-header'>
       <div className='notion-nav-header'>
-        <div style={{display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
           <ToggleThemeButton />
 
           <components.PageLink
-              href={config.host}
-              className={cs(styles.navLink, 'breadcrumb', 'button')}
-            >
+            href={config.host}
+            className={cs(styles.navLink, 'breadcrumb', 'button')}
+          >
             <img src={`${config.host}/favicon-32x32.png`} />
-            <p style={{marginLeft: 10}}>{config.name}</p>
+            <p style={{ marginLeft: 10 }}>{config.name}</p>
           </components.PageLink>
         </div>
 
@@ -89,19 +86,20 @@ export const NotionPageHeader: React.FC<{
             })
             .filter(Boolean)}
 
-
           {isSearchEnabled && <Search block={block} title={null} />}
         </div>
 
-        <div style={{display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
           <a
-              href='https://lgbtqcenter.org.il/'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <img src={`${config.host}/lgbt-center-logo.png`} style={{maxHeight: 40}}/>
+            href='https://lgbtqcenter.org.il/'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <img
+              src={`${config.host}/lgbt-center-logo.png`}
+              style={{ maxHeight: 40 }}
+            />
           </a>
-
         </div>
       </div>
     </header>

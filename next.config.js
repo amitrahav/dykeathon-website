@@ -14,7 +14,8 @@ const imgs = withBundleAnalyzer({
       'pbs.twimg.com',
       'abs.twimg.com',
       's3.us-west-2.amazonaws.com',
-      'transitivebullsh.it'
+      'transitivebullsh.it',
+      'localhost'
     ],
     formats: ['image/avif', 'image/webp'],
     dangerouslyAllowSVG: true,
@@ -55,22 +56,5 @@ module.exports = {
       }
     }
     return config
-  },
-  // Exclude API routes from the export process
-  exportPathMap: async function (
-    defaultPathMap,
-    { dev, dir, outDir, distDir, buildId }
-  ) {
-    // Remove API routes from export
-    const pathMap = { ...defaultPathMap }
-
-    // Filter out api_backup routes
-    Object.keys(pathMap).forEach((path) => {
-      if (path.startsWith('/api_backup/')) {
-        delete pathMap[path]
-      }
-    })
-
-    return pathMap
   }
 }
